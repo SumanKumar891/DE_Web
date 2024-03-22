@@ -18,6 +18,12 @@
 @import downloads_path_provider;
 #endif
 
+#if __has_include(<fluttertoast/FluttertoastPlugin.h>)
+#import <fluttertoast/FluttertoastPlugin.h>
+#else
+@import fluttertoast;
+#endif
+
 #if __has_include(<open_file/OpenFilePlugin.h>)
 #import <open_file/OpenFilePlugin.h>
 #else
@@ -65,6 +71,7 @@
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [BatteryInfoPlugin registerWithRegistrar:[registry registrarForPlugin:@"BatteryInfoPlugin"]];
   [DownloadsPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"DownloadsPathProviderPlugin"]];
+  [FluttertoastPlugin registerWithRegistrar:[registry registrarForPlugin:@"FluttertoastPlugin"]];
   [OpenFilePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlugin"]];
   [OpenFilePlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlusPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
