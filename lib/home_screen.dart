@@ -1772,42 +1772,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-//   Future<void> fetchBatteryPercentage(String deviceId) async {
-//   final apiUrl = Uri.parse('https://g2cn61cfw6.execute-api.us-east-1.amazonaws.com/default/battery_percentage_2?deviceid=$deviceId');
-
-//   try {
-//     final response = await http.get(apiUrl);
-//     if (response.statusCode == 200) {
-//       final Map<String, dynamic> data = jsonDecode(response.body);
-//       // Handle the data received from the API
-//       print('Battery Percentage: ${data['percentage']}');
-//     } else {
-//       throw Exception('Failed to fetch battery percentage: ${response.statusCode}');
-//     }
-//   } catch (e) {
-//     print('Error fetching battery percentage: $e');
-//     // Handle errors
-//   }
-// }
-  // Future<String> fetchBatteryPercentage(String deviceId) async {
-  //   final apiUrl = Uri.parse(
-  //       'https://g2cn61cfw6.execute-api.us-east-1.amazonaws.com/default/battery_percentage_2?deviceid=$deviceId');
-
-  //   try {
-  //     final response = await http.get(apiUrl);
-  //     if (response.statusCode == 200) {
-  //       final Map<String, dynamic> data = jsonDecode(response.body);
-  //       return data['percentage'].toString();
-  //     } else {
-  //       throw Exception(
-  //           'Failed to fetch battery percentage: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error fetching battery percentage: $e');
-  //     return 'N/A';
-  //   }
-  // }
-
   Future<String> fetchBatteryPercentage(String deviceId) async {
     final apiUrl = Uri.parse(
         'https://g2cn61cfw6.execute-api.us-east-1.amazonaws.com/default/battery_percentage_2?deviceid=$deviceId');
@@ -1877,7 +1841,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
             margin: EdgeInsets.only(left: 2),
@@ -1888,9 +1851,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () => _filter(context),
                 label: const Text('Countries')),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-          // ),
           FloatingActionButton.extended(
               heroTag: 'btn3',
               backgroundColor: buttonColor,
@@ -1964,33 +1924,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: backgroundColor),
                                 ),
                               ),
-                              // Center(
-                              //   child: Text(
-                              //     'REGISTERED',
-                              //     style: TextStyle(
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 16,
-                              //         color: backgroundColor),
-                              //   ),
-                              // ),
-                              // Center(
-                              //   child: Text(
-                              //     'CONFIGURE',
-                              //     style: TextStyle(
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 16,
-                              //         color: backgroundColor),
-                              //   ),
-                              // ),
-                              // Center(
-                              //   child: Text(
-                              //     'DOWNLOAD',
-                              //     style: TextStyle(
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 16,
-                              //         color: backgroundColor),
-                              //   ),
-                              // ),
                               Center(
                                 child: Text(
                                   'Weather Data',
@@ -2000,15 +1933,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: backgroundColor),
                                 ),
                               ),
-                              // Center(
-                              //   child: Text(
-                              //     'Motion Count',
-                              //     style: TextStyle(
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize: 16,
-                              //         color: backgroundColor),
-                              //   ),
-                              // ),
                               Center(
                                 child: Text(
                                   'Insect Count',
@@ -2101,66 +2025,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Center(
-                                //     child: Text(
-                                //       '${deviceData[i].registerStatus}',
-                                //       style: const TextStyle(
-                                //           fontSize: 16, color: Colors.white),
-                                //     ),
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Center(
-                                //     child: IconButton(
-                                //       onPressed: () {
-                                //         // print('CONFIGURE');
-                                //         Navigator.of(context).push(
-                                //           MaterialPageRoute(
-                                //             builder: (_) => ConfigScreen(
-                                //               deviceId: deviceData[i].deviceId,
-                                //               userName: widget.email,
-                                //             ),
-                                //           ),
-                                //         );
-                                //       },
-                                //       icon: const Icon(
-                                //         Icons.settings,
-                                //         color: backgroundColor,
-                                //       ),
-                                //       // label: const Text('CONFIGURE'),
-                                //       style: ElevatedButton.styleFrom(
-                                //           // elevation: 10,
-                                //           backgroundColor: Colors.white10),
-                                //     ),
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Center(
-                                //     child: IconButton(
-                                //       onPressed: () {
-                                //         Navigator.of(context).push(
-                                //           MaterialPageRoute(
-                                //             builder: (_) => DeviceScreen(
-                                //               deviceId: deviceData[i].deviceId,
-                                //             ),
-                                //           ),
-                                //         );
-                                //       },
-                                //       icon: const Icon(
-                                //         Icons.download,
-                                //         color: backgroundColor,
-                                //       ),
-                                //       // label: const Text('DOWNLOAD'),
-                                //       style: ElevatedButton.styleFrom(
-                                //           // elevation: 10,
-                                //           backgroundColor: Colors.white10),
-                                //     ),
-                                //   ),
-                                // ),
                                 SizedBox(
                                   height: 40,
                                   child: Center(
@@ -2187,32 +2051,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Center(
-                                //     child: IconButton(
-                                //       onPressed: () {
-                                //         // print('Insect');
-                                //         Navigator.of(context).push(
-                                //           MaterialPageRoute(
-                                //             builder: (_) => Insects(
-                                //               // values: [],
-                                //               deviceId: deviceData[i].deviceId,
-                                //             ),
-                                //           ),
-                                //         );
-                                //       },
-                                //       icon: const Icon(
-                                //         Icons.bug_report_rounded,
-                                //         color: backgroundColor,
-                                //       ),
-                                //       // label: const Text('InsectCount Data'),
-                                //       style: ElevatedButton.styleFrom(
-                                //           // elevation: 10,
-                                //           backgroundColor: Colors.white10),
-                                //     ),
-                                //   ),
-                                // ),
                                 SizedBox(
                                   height: 40,
                                   child: Center(
@@ -2264,49 +2102,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Center(
-                                //     child: Row(
-                                //       children: [
-                                //         Expanded(
-                                //           child: Column(
-                                //             mainAxisAlignment:
-                                //                 MainAxisAlignment.center,
-                                //             children: [
-                                //               IconButton(
-                                //                 onPressed: () {
-                                //                   Navigator.of(context).push(
-                                //                     MaterialPageRoute(
-                                //                       builder: (_) => Battery(
-                                //                         deviceId: deviceData[i]
-                                //                             .deviceId,
-                                //                       ),
-                                //                     ),
-                                //                   );
-                                //                 },
-                                //                 icon: const Icon(
-                                //                   Icons.battery_6_bar,
-                                //                   color: backgroundColor,
-                                //                 ),
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         ),
-                                //         Expanded(
-                                //           child: Column(
-                                //             mainAxisAlignment:
-                                //                 MainAxisAlignment.center,
-                                //             children: [
-                                //               Text(deviceData[i].deviceId)
-                                //             ],
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ),
-                                // ),
-
                                 SizedBox(
                                   height: 40,
                                   child:
