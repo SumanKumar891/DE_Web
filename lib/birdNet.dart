@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -62,16 +63,14 @@ class _MyHomePageState extends State<birdNet> {
       final filename = '$deviceId' + "_" + '$timestamp.mp3';
       final url =
           'https://1yyfny7qh1.execute-api.us-east-1.amazonaws.com/download?key=$filename';
+      print('Downloading file from: $url');
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
-        final dir = await Directory.systemTemp.createTemp();
-        final filePath = '${dir.path}/$filename';
-        final file = File(filePath);
-        await file.writeAsBytes(response.bodyBytes);
-        print('File saved to local storage: $filePath');
-      } else {
-          print('Error getting application documents directory');
-        }
+        final blob = Blob([response.bodyBytes]);
+        final anchor = AnchorElement(href: Url.createObjectUrlFromBlob(blob));
+        anchor.download = filename;
+        anchor.click();
+        print('File downloaded successfully');
       } else {
         print('Failed to download file: ${response.reasonPhrase}');
       }
@@ -277,10 +276,10 @@ class _MyHomePageState extends State<birdNet> {
                             'Confidence',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
-                          // DataColumn(
-                          //     label: Text('Download Mp3',
-                          //         style:
-                          //             TextStyle(fontWeight: FontWeight.bold))),
+                          DataColumn(
+                              label: Text('Download Mp3',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold))),
                         ],
                         rows: tableData
                             .asMap()
@@ -422,6 +421,20 @@ class _MyHomePageState extends State<birdNet> {
                                             )
                                             .toList(),
                                       ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        downloadMp3(widget.deviceId,
+                                            entry.value.timestamp);
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.teal),
+                                      ),
+                                      child: Text('Download'),
                                     ),
                                   ),
                                 ],
