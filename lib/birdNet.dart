@@ -1,84 +1,3 @@
-// import 'dart:io';
-
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-
-// import 'package:path_provider/path_provider.dart';
-
-// class birdNet extends StatefulWidget {
-//   final String deviceId;
-
-//   const birdNet({Key? key, required this.deviceId}) : super(key: key);
-
-//   @override
-//   State<birdNet> createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<birdNet> {
-//   late DateTime _startDate;
-//   late DateTime _endDate;
-//   String errorMessage = '';
-//   List<ApiData> tableData = [];
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _startDate = DateTime.now();
-//     _endDate = DateTime.now();
-//   }
-
-//   Future<void> getAPIData(
-//       String deviceId, DateTime startDate, DateTime endDate) async {
-//     final response = await http.get(Uri.https(
-//       'n7xpn7z3k8.execute-api.us-east-1.amazonaws.com',
-//       '/default/bird_detections',
-//       {
-//         'deviceId': deviceId,
-//         'startDate': DateFormat('dd-MM-yyyy').format(startDate),
-//         'endDate': DateFormat('dd-MM-yyyy').format(endDate),
-//       },
-//     ));
-
-//     if (response.statusCode == 200) {
-//       final List<dynamic> jsonData = jsonDecode(response.body);
-//       setState(() {
-//         tableData = jsonData.map((item) => ApiData.fromJson(item)).toList();
-//       });
-//     } else {
-//       setState(() {
-//         errorMessage = 'Failed to load data';
-//       });
-//     }
-//   }
-
-//   void updateData() async {
-//     await getAPIData(widget.deviceId, _startDate, _endDate);
-//   }
-
-//   Future<void> downloadMp3(String deviceId, String timestamp) async {
-//     final filename = '$deviceId' + "_" + '$timestamp.mp3';
-//     final url =
-//         'https://1yyfny7qh1.execute-api.us-east-1.amazonaws.com/download?key=$filename';
-//     final response = await http.get(Uri.parse(url));
-//     print(url);
-//     if (response.statusCode == 200) {
-//       Directory? appDocumentsDirectory =
-//           await getApplicationDocumentsDirectory();
-//       if (appDocumentsDirectory != null) {
-//         String filePath = '${appDocumentsDirectory.path}/$filename';
-//         File file = File(filePath);
-//         await file.writeAsBytes(response.bodyBytes);
-//         print('File saved to local storage: $filePath');
-//       } else {
-//         print('Error getting application documents directory');
-//       }
-//     } else {
-//       print('Failed to download file: ${response.reasonPhrase}');
-//     }
-//   }
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -138,33 +57,19 @@ class _MyHomePageState extends State<birdNet> {
     await getAPIData(widget.deviceId, _startDate, _endDate);
   }
 
-  double calculateRowHeight(List<Detection> detections) {
-    final double baseHeight = 60.0; // Base height for the row
-    final double detectionHeight = 40.0; // Height for each detection
-    final double dividerHeight = 8.0; // Height for each divider
-    final int numberOfDetections = detections.length;
-    final double totalHeightNeeded = baseHeight +
-        (numberOfDetections - 1) * dividerHeight +
-        numberOfDetections * detectionHeight;
-    return totalHeightNeeded;
-  }
-
   Future<void> downloadMp3(String deviceId, String timestamp) async {
     try {
       final filename = '$deviceId' + "_" + '$timestamp.mp3';
       final url =
           'https://1yyfny7qh1.execute-api.us-east-1.amazonaws.com/download?key=$filename';
       final response = await http.get(Uri.parse(url));
-      print(url);
       if (response.statusCode == 200) {
-        Directory? appDocumentsDirectory =
-            await getApplicationDocumentsDirectory();
-        if (appDocumentsDirectory != null) {
-          String filePath = '${appDocumentsDirectory.path}/$filename';
-          File file = File(filePath);
-          await file.writeAsBytes(response.bodyBytes);
-          print('File saved to local storage: $filePath');
-        } else {
+        final dir = await Directory.systemTemp.createTemp();
+        final filePath = '${dir.path}/$filename';
+        final file = File(filePath);
+        await file.writeAsBytes(response.bodyBytes);
+        print('File saved to local storage: $filePath');
+      } else {
           print('Error getting application documents directory');
         }
       } else {
@@ -519,15 +424,6 @@ class _MyHomePageState extends State<birdNet> {
                                       ),
                                     ),
                                   ),
-                                  // DataCell(
-                                  //   ElevatedButton(
-                                  //     onPressed: () {
-                                  //       downloadMp3(widget.deviceId,
-                                  //           entry.value.timestamp);
-                                  //     },
-                                  //     child: Text('Download'),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             )
@@ -541,8 +437,6 @@ class _MyHomePageState extends State<birdNet> {
     );
   }
 }
-
-
 
 class ApiData {
   final String timestamp;
