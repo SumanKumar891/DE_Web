@@ -1,7 +1,92 @@
+// import 'dart:io';
+
+// import 'package:flutter/material.dart';
+// import 'package:intl/intl.dart';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
+
+// import 'package:path_provider/path_provider.dart';
+
+// class birdNet extends StatefulWidget {
+//   final String deviceId;
+
+//   const birdNet({Key? key, required this.deviceId}) : super(key: key);
+
+//   @override
+//   State<birdNet> createState() => _MyHomePageState();
+// }
+
+// class _MyHomePageState extends State<birdNet> {
+//   late DateTime _startDate;
+//   late DateTime _endDate;
+//   String errorMessage = '';
+//   List<ApiData> tableData = [];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _startDate = DateTime.now();
+//     _endDate = DateTime.now();
+//   }
+
+//   Future<void> getAPIData(
+//       String deviceId, DateTime startDate, DateTime endDate) async {
+//     final response = await http.get(Uri.https(
+//       'n7xpn7z3k8.execute-api.us-east-1.amazonaws.com',
+//       '/default/bird_detections',
+//       {
+//         'deviceId': deviceId,
+//         'startDate': DateFormat('dd-MM-yyyy').format(startDate),
+//         'endDate': DateFormat('dd-MM-yyyy').format(endDate),
+//       },
+//     ));
+
+//     if (response.statusCode == 200) {
+//       final List<dynamic> jsonData = jsonDecode(response.body);
+//       setState(() {
+//         tableData = jsonData.map((item) => ApiData.fromJson(item)).toList();
+//       });
+//     } else {
+//       setState(() {
+//         errorMessage = 'Failed to load data';
+//       });
+//     }
+//   }
+
+//   void updateData() async {
+//     await getAPIData(widget.deviceId, _startDate, _endDate);
+//   }
+
+//   Future<void> downloadMp3(String deviceId, String timestamp) async {
+//     final filename = '$deviceId' + "_" + '$timestamp.mp3';
+//     final url =
+//         'https://1yyfny7qh1.execute-api.us-east-1.amazonaws.com/download?key=$filename';
+//     final response = await http.get(Uri.parse(url));
+//     print(url);
+//     if (response.statusCode == 200) {
+//       Directory? appDocumentsDirectory =
+//           await getApplicationDocumentsDirectory();
+//       if (appDocumentsDirectory != null) {
+//         String filePath = '${appDocumentsDirectory.path}/$filename';
+//         File file = File(filePath);
+//         await file.writeAsBytes(response.bodyBytes);
+//         print('File saved to local storage: $filePath');
+//       } else {
+//         print('Error getting application documents directory');
+//       }
+//     } else {
+//       print('Failed to download file: ${response.reasonPhrase}');
+//     }
+//   }
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:path_provider/path_provider.dart';
 
 class birdNet extends StatefulWidget {
   final String deviceId;
@@ -53,7 +138,42 @@ class _MyHomePageState extends State<birdNet> {
     await getAPIData(widget.deviceId, _startDate, _endDate);
   }
 
-  // Inside _MyHomePageState class
+  double calculateRowHeight(List<Detection> detections) {
+    final double baseHeight = 60.0; // Base height for the row
+    final double detectionHeight = 40.0; // Height for each detection
+    final double dividerHeight = 8.0; // Height for each divider
+    final int numberOfDetections = detections.length;
+    final double totalHeightNeeded = baseHeight +
+        (numberOfDetections - 1) * dividerHeight +
+        numberOfDetections * detectionHeight;
+    return totalHeightNeeded;
+  }
+
+  Future<void> downloadMp3(String deviceId, String timestamp) async {
+    try {
+      final filename = '$deviceId' + "_" + '$timestamp.mp3';
+      final url =
+          'https://1yyfny7qh1.execute-api.us-east-1.amazonaws.com/download?key=$filename';
+      final response = await http.get(Uri.parse(url));
+      print(url);
+      if (response.statusCode == 200) {
+        Directory? appDocumentsDirectory =
+            await getApplicationDocumentsDirectory();
+        if (appDocumentsDirectory != null) {
+          String filePath = '${appDocumentsDirectory.path}/$filename';
+          File file = File(filePath);
+          await file.writeAsBytes(response.bodyBytes);
+          print('File saved to local storage: $filePath');
+        } else {
+          print('Error getting application documents directory');
+        }
+      } else {
+        print('Failed to download file: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      print('Error downloading file: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,139 +341,197 @@ class _MyHomePageState extends State<birdNet> {
                     )
                   else if (tableData.isNotEmpty)
                     DataTable(
-                      decoration: BoxDecoration(
-                          // color: Color.fromARGB(255, 111, 196, 114),
-                          // borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                      dataRowHeight: 60,
-                      columns: [
-                        DataColumn(
-                            label: Text(
-                          'Index',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'TimeStamp',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Common Name',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Scientific Name',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                        DataColumn(
-                            label: Text(
-                          'Confidence',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        )),
-                      ],
-                      rows: tableData
-                          .asMap()
-                          .entries
-                          .map(
-                            (entry) => DataRow(
-                              selected: entry.value.detections.length > 1,
-                              cells: [
-                                DataCell(Text((entry.key + 1).toString())),
-                                DataCell(Text(entry.value.timestamp)),
-                                DataCell(
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: entry.value.detections
-                                        .asMap()
-                                        .entries
-                                        .map(
-                                          (detectionEntry) => Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  '${detectionEntry.key + 1}) ${detectionEntry.value.commonName}'),
-                                              if (detectionEntry.key !=
-                                                  entry.value.detections
-                                                          .length -
-                                                      1)
-                                                Divider(), // Add Divider if not the last item
-                                            ],
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                  placeholder: entry.value.detections.length > 1
-                                      ? true
-                                      : false,
-                                ),
-                                DataCell(
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: entry.value.detections
-                                        .asMap()
-                                        .entries
-                                        .map(
-                                          (detectionEntry) => Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  '${detectionEntry.key + 1}) ${detectionEntry.value.scientificName}'),
-                                              if (detectionEntry.key !=
-                                                  entry.value.detections
-                                                          .length -
-                                                      1)
-                                                Divider(), // Add Divider if not the last item
-                                            ],
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                  placeholder: entry.value.detections.length > 1
-                                      ? true
-                                      : false,
-                                ),
-                                DataCell(
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: entry.value.detections
-                                        .asMap()
-                                        .entries
-                                        .map(
-                                          (detectionEntry) => Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  '${detectionEntry.key + 1}) ${detectionEntry.value.confidence.toStringAsFixed(3)}'),
-                                              if (detectionEntry.key !=
-                                                  entry.value.detections
-                                                          .length -
-                                                      1)
-                                                Divider(), // Add Divider if not the last item
-                                            ],
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                  placeholder: entry.value.detections.length > 1
-                                      ? true
-                                      : false,
-                                ),
-                              ],
+                        decoration: BoxDecoration(
+                            // color: Color.fromARGB(255, 111, 196, 114),
+                            // borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
-                          )
-                          .toList(),
-                    )
+                        dataRowHeight: 60,
+                        columns: [
+                          DataColumn(
+                              label: Text(
+                            'Index',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                          DataColumn(
+                              label: Text(
+                            'TimeStamp',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                          DataColumn(
+                              label: Text(
+                            'Common Name',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                          DataColumn(
+                              label: Text(
+                            'Scientific Name',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                          DataColumn(
+                              label: Text(
+                            'Confidence',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                          // DataColumn(
+                          //     label: Text('Download Mp3',
+                          //         style:
+                          //             TextStyle(fontWeight: FontWeight.bold))),
+                        ],
+                        rows: tableData
+                            .asMap()
+                            .entries
+                            .map(
+                              (entry) => DataRow(
+                                cells: [
+                                  DataCell(
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            (entry.key + 1).toString(),
+                                            style: TextStyle(
+                                                color: Colors
+                                                    .black), // Set font color to black
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            entry.value.timestamp,
+                                            style: TextStyle(
+                                                color: Colors
+                                                    .black), // Set font color to black
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: entry.value.detections
+                                            .map(
+                                              (detection) => Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    (entry.value.detections.indexOf(
+                                                                    detection) +
+                                                                1)
+                                                            .toString() +
+                                                        ") " +
+                                                        detection.commonName,
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  if (detection !=
+                                                      entry.value.detections
+                                                          .last)
+                                                    Divider(),
+                                                ],
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: entry.value.detections
+                                            .map(
+                                              (detection) => Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    (entry.value.detections.indexOf(
+                                                                    detection) +
+                                                                1)
+                                                            .toString() +
+                                                        ") " +
+                                                        detection
+                                                            .scientificName,
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  if (detection !=
+                                                      entry.value.detections
+                                                          .last)
+                                                    Divider(),
+                                                ],
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: entry.value.detections
+                                            .map(
+                                              (detection) => Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    (entry.value.detections.indexOf(
+                                                                    detection) +
+                                                                1)
+                                                            .toString() +
+                                                        ") " +
+                                                        detection.confidence
+                                                            .toStringAsFixed(3),
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  if (detection !=
+                                                      entry.value.detections
+                                                          .last)
+                                                    Divider(),
+                                                ],
+                                              ),
+                                            )
+                                            .toList(),
+                                      ),
+                                    ),
+                                  ),
+                                  // DataCell(
+                                  //   ElevatedButton(
+                                  //     onPressed: () {
+                                  //       downloadMp3(widget.deviceId,
+                                  //           entry.value.timestamp);
+                                  //     },
+                                  //     child: Text('Download'),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            )
+                            .toList())
                 ],
               ),
             ),
@@ -363,6 +541,8 @@ class _MyHomePageState extends State<birdNet> {
     );
   }
 }
+
+
 
 class ApiData {
   final String timestamp;
