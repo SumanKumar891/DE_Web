@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:html';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +22,7 @@ class _MyHomePageState extends State<birdNet> {
   late DateTime _endDate;
   String errorMessage = '';
   List<ApiData> tableData = [];
+  String searchTimestamp = '';
 
   @override
   void initState() {
@@ -46,6 +47,10 @@ class _MyHomePageState extends State<birdNet> {
       final List<dynamic> jsonData = jsonDecode(response.body);
       setState(() {
         tableData = jsonData.map((item) => ApiData.fromJson(item)).toList();
+        // Sort the tableData list based on timestamp in descending order
+        tableData.sort((a, b) => DateFormat('dd-MM-yyyy_HH-mm-ss')
+            .parse(b.timestamp)
+            .compareTo(DateFormat('dd-MM-yyyy_HH-mm-ss').parse(a.timestamp)));
       });
     } else {
       setState(() {
