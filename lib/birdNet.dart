@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'dart:io';
 
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -81,6 +82,33 @@ class _MyHomePageState extends State<birdNet> {
       }
     } catch (e) {
       print('Error downloading file: $e');
+    }
+  }
+
+  Future<void> downloadTableDataAsCsv() async {
+    try {
+      final List<List<String>> csvData = [
+        ['Timestamp', 'Common Name', 'Scientific Name', 'Confidence']
+      ];
+      for (final data in tableData) {
+        for (final detection in data.detections) {
+          csvData.add([
+            data.timestamp,
+            detection.commonName,
+            detection.scientificName,
+            detection.confidence.toString(),
+          ]);
+        }
+      }
+      final csvString = const ListToCsvConverter().convert(csvData);
+      final filename = 'bird_detections.csv';
+
+      final blob = Blob([csvString]);
+      final anchor = AnchorElement(href: Url.createObjectUrlFromBlob(blob));
+      anchor.download = filename;
+      anchor.click();
+    } catch (e) {
+      print('Error downloading CSV: $e');
     }
   }
 
@@ -217,6 +245,27 @@ class _MyHomePageState extends State<birdNet> {
                         },
                         child: Text(
                           'Get Data',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          minimumSize: Size(80, 0),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 24),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await downloadTableDataAsCsv();
+                        },
+                        child: Text(
+                          'Download CSV',
                           style: TextStyle(
                             fontSize: 20,
                           ),
