@@ -2229,54 +2229,81 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
+                                // SizedBox(
+                                //   height: 40,
+                                //   child: Center(
+                                //     child: FutureBuilder<String>(
+                                //       future: fetchBatteryPercentage(
+                                //           deviceData[i].deviceId),
+                                //       builder: (context, snapshot) {
+                                //         if (snapshot.connectionState ==
+                                //             ConnectionState.waiting) {
+                                //           return CircularProgressIndicator(
+                                //             color: Colors.green,
+                                //           );
+                                //         } else if (snapshot.hasError) {
+                                //           return Text(
+                                //               'Error fetching battery percentage');
+                                //         } else {
+                                //           return Row(
+                                //             mainAxisAlignment:
+                                //                 MainAxisAlignment.center,
+                                //             children: [
+                                //               IconButton(
+                                //                 onPressed: () {
+                                //                   Navigator.of(context).push(
+                                //                     MaterialPageRoute(
+                                //                       builder: (_) => Battery(
+                                //                         deviceId: deviceData[i]
+                                //                             .deviceId,
+                                //                       ),
+                                //                     ),
+                                //                   );
+                                //                 },
+                                //                 icon: const Icon(
+                                //                   Icons.battery_6_bar,
+                                //                   color: backgroundColor,
+                                //                 ),
+                                //               ),
+                                //               // Text(
+                                //               //   snapshot.data ?? 'N/A',
+                                //               //   style: TextStyle(
+                                //               //       color: Colors.white),
+                                //               // ),
+                                //             ],
+                                //           );
+                                //         }
+                                //       },
+                                //     ),
+                                //   ),
+                                // ),
                                 SizedBox(
                                   height: 40,
                                   child: Center(
-                                    child: FutureBuilder<String>(
-                                      future: fetchBatteryPercentage(
-                                          deviceData[i].deviceId),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return CircularProgressIndicator(
-                                            color: Colors.green,
-                                          );
-                                        } else if (snapshot.hasError) {
-                                          return Text(
-                                              'Error fetching battery percentage');
-                                        } else {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              IconButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (_) => Battery(
-                                                        deviceId: deviceData[i]
-                                                            .deviceId,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.battery_6_bar,
-                                                  color: backgroundColor,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (_) => Battery(
+                                                  deviceId:
+                                                      deviceData[i].deviceId,
                                                 ),
                                               ),
-                                              // Text(
-                                              //   snapshot.data ?? 'N/A',
-                                              //   style: TextStyle(
-                                              //       color: Colors.white),
-                                              // ),
-                                            ],
-                                          );
-                                        }
-                                      },
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.battery_6_bar,
+                                            color: backgroundColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
+                                )
                               ]),
                             ],
                           ),
