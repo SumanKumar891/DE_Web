@@ -2,6 +2,7 @@ import 'dart:html';
 import 'dart:io';
 
 import 'package:csv/csv.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -24,12 +25,20 @@ class _MyHomePageState extends State<birdNet> {
   String errorMessage = '';
   List<ApiData> tableData = [];
   String searchTimestamp = '';
+  late TextEditingController _searchController; // Add TextEditingController
 
   @override
   void initState() {
     super.initState();
     _startDate = DateTime.now();
     _endDate = DateTime.now();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> getAPIData(
@@ -101,7 +110,8 @@ class _MyHomePageState extends State<birdNet> {
         }
       }
       final csvString = const ListToCsvConverter().convert(csvData);
-      final filename = 'bird_detections.csv';
+      final filename =
+          "$_startDate" + "" + "$_endDate" + "" + 'bird_detections.csv';
 
       final blob = Blob([csvString]);
       final anchor = AnchorElement(href: Url.createObjectUrlFromBlob(blob));
@@ -282,7 +292,8 @@ class _MyHomePageState extends State<birdNet> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 32.0),
+                  SizedBox(height: 16.0),
+                  // Error message
                   if (errorMessage.isNotEmpty)
                     Center(
                       child: Padding(
@@ -296,205 +307,279 @@ class _MyHomePageState extends State<birdNet> {
                           ),
                         ),
                       ),
-                    )
-                  else if (tableData.isNotEmpty)
-                    DataTable(
-                        decoration: BoxDecoration(
-                            // color: Color.fromARGB(255, 111, 196, 114),
-                            // borderRadius: BorderRadius.all(Radius.circular(20)),
-                            ),
-                        dataRowHeight: 60,
-                        columns: [
-                          DataColumn(
-                              label: Text(
+                    ),
+                  SizedBox(height: 16.0),
+                  // Table data
+                  DataTable(
+                    decoration: BoxDecoration(),
+                    dataRowHeight: 60,
+                    columns: [
+                      DataColumn(
+                        label: SizedBox(
+                          // Wrap the label with SizedBox to set fixed width
+                          width: 50, // Set a fixed width for the Index column
+                          child: Text(
                             'Index',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'TimeStamp',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'Common Name',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'Scientific Name',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'Confidence',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                          DataColumn(
-                              label: Text('Download Mp3',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                        ],
-                        rows: tableData
-                            .asMap()
-                            .entries
-                            .map(
-                              (entry) => DataRow(
-                                cells: [
-                                  DataCell(
-                                    SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            (entry.key + 1).toString(),
-                                            style: TextStyle(
-                                                color: Colors
-                                                    .black), // Set font color to black
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        numeric:
+                            true, // This indicates that the column contains numeric data
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          width:
+                              160, // Set the desired width for the DataColumn containing the search field
+                          child: Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0.0),
+                              child: TextField(
+                                controller: _searchController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    // Handle changes if necessary
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  labelText: 'Timestamp',
+                                  labelStyle: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  DataCell(
-                                    SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            entry.value.timestamp,
-                                            style: TextStyle(
-                                                color: Colors
-                                                    .black), // Set font color to black
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                  prefixIcon: Icon(CupertinoIcons.search),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 16,
                                   ),
-                                  DataCell(
-                                    SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: entry.value.detections
-                                            .map(
-                                              (detection) => Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    (entry.value.detections.indexOf(
-                                                                    detection) +
-                                                                1)
-                                                            .toString() +
-                                                        ") " +
-                                                        detection.commonName,
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                  if (detection !=
-                                                      entry.value.detections
-                                                          .last)
-                                                    Divider(),
-                                                ],
-                                              ),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: entry.value.detections
-                                            .map(
-                                              (detection) => Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    (entry.value.detections.indexOf(
-                                                                    detection) +
-                                                                1)
-                                                            .toString() +
-                                                        ") " +
-                                                        detection
-                                                            .scientificName,
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                  if (detection !=
-                                                      entry.value.detections
-                                                          .last)
-                                                    Divider(),
-                                                ],
-                                              ),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: entry.value.detections
-                                            .map(
-                                              (detection) => Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    (entry.value.detections.indexOf(
-                                                                    detection) +
-                                                                1)
-                                                            .toString() +
-                                                        ") " +
-                                                        detection.confidence
-                                                            .toStringAsFixed(3),
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  ),
-                                                  if (detection !=
-                                                      entry.value.detections
-                                                          .last)
-                                                    Divider(),
-                                                ],
-                                              ),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        downloadMp3(widget.deviceId,
-                                            entry.value.timestamp);
-                                      },
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.teal),
-                                      ),
-                                      child: Text('Download'),
-                                    ),
-                                  ),
-                                ],
+                                  border: InputBorder.none,
+                                ),
                               ),
-                            )
-                            .toList())
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          // Wrap the label with SizedBox to set fixed width
+                          width:
+                              150, // Set a fixed width for the Common Name column
+                          child: Text(
+                            'Common Name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          // Wrap the label with SizedBox to set fixed width
+                          width:
+                              150, // Set a fixed width for the Scientific Name column
+                          child: Text(
+                            'Scientific Name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          // Wrap the label with SizedBox to set fixed width
+                          width:
+                              100, // Set a fixed width for the Confidence column
+                          child: Text(
+                            'Confidence',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          // Wrap the label with SizedBox to set fixed width
+                          width:
+                              100, // Set a fixed width for the Download Mp3 column
+                          child: Text(
+                            'Download Mp3',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    rows: tableData
+                        .asMap()
+                        .entries
+                        .where((entry) => entry.value.timestamp
+                            .startsWith(_searchController.text))
+                        .map(
+                          (entry) => DataRow(
+                            cells: [
+                              DataCell(
+                                SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        (entry.key + 1).toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        entry.value.timestamp,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: entry.value.detections
+                                        .map(
+                                          (detection) => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                (entry.value.detections.indexOf(
+                                                                detection) +
+                                                            1)
+                                                        .toString() +
+                                                    ") " +
+                                                    detection.commonName,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              if (detection !=
+                                                  entry.value.detections.last)
+                                                Divider(),
+                                            ],
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: entry.value.detections
+                                        .map(
+                                          (detection) => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                (entry.value.detections.indexOf(
+                                                                detection) +
+                                                            1)
+                                                        .toString() +
+                                                    ") " +
+                                                    detection.scientificName,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              if (detection !=
+                                                  entry.value.detections.last)
+                                                Divider(),
+                                            ],
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: entry.value.detections
+                                        .map(
+                                          (detection) => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                (entry.value.detections.indexOf(
+                                                                detection) +
+                                                            1)
+                                                        .toString() +
+                                                    ") " +
+                                                    detection.confidence
+                                                        .toStringAsFixed(3),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              if (detection !=
+                                                  entry.value.detections.last)
+                                                Divider(),
+                                            ],
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                ElevatedButton(
+                                  onPressed: () {
+                                    downloadMp3(
+                                        widget.deviceId, entry.value.timestamp);
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      Colors.teal,
+                                    ),
+                                  ),
+                                  child: Text('Download'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ],
               ),
             ),
