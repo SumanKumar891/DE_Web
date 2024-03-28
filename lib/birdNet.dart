@@ -329,54 +329,54 @@ class _MyHomePageState extends State<birdNet> {
                         numeric:
                             true, // This indicates that the column contains numeric data
                       ),
-                      DataColumn(
-                        label: SizedBox(
-                          width:
-                              160, // Set the desired width for the DataColumn containing the search field
-                          child: Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 0.0),
-                              child: TextField(
-                                controller: _searchController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    // Handle changes if necessary
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                  labelText: 'Timestamp',
-                                  labelStyle: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  prefixIcon: Icon(CupertinoIcons.search),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 16,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                       // DataColumn(
                       //   label: SizedBox(
-                      //     // Wrap the label with SizedBox to set fixed width
                       //     width:
-                      //         150, // Set a fixed width for the Common Name column
-                      //     child: Text(
-                      //       'Timestamp',
-                      //       style: TextStyle(
-                      //         fontWeight: FontWeight.bold,
-                      //         fontSize: 15,
+                      //         160, // Set the desired width for the DataColumn containing the search field
+                      //     child: Expanded(
+                      //       child: Padding(
+                      //         padding:
+                      //             const EdgeInsets.symmetric(horizontal: 0.0),
+                      //         child: TextField(
+                      //           controller: _searchController,
+                      //           onChanged: (value) {
+                      //             setState(() {
+                      //               // Handle changes if necessary
+                      //             });
+                      //           },
+                      //           decoration: InputDecoration(
+                      //             labelText: 'Timestamp',
+                      //             labelStyle: TextStyle(
+                      //               fontSize: 15,
+                      //               color: Colors.black,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //             prefixIcon: Icon(CupertinoIcons.search),
+                      //             contentPadding: EdgeInsets.symmetric(
+                      //               vertical: 12,
+                      //               horizontal: 16,
+                      //             ),
+                      //             border: InputBorder.none,
+                      //           ),
+                      //         ),
                       //       ),
                       //     ),
                       //   ),
                       // ),
+                      DataColumn(
+                        label: SizedBox(
+                          // Wrap the label with SizedBox to set fixed width
+                          width:
+                              150, // Set a fixed width for the Common Name column
+                          child: Text(
+                            'Timestamp',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
                       DataColumn(
                         label: SizedBox(
                           // Wrap the label with SizedBox to set fixed width
