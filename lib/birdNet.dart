@@ -146,156 +146,10 @@ class _MyHomePageState extends State<birdNet> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: TextFormField(
-                  //         onTap: () async {
-                  //           final DateTime? selectedDate = await showDatePicker(
-                  //             context: context,
-                  //             initialDate: _startDate,
-                  //             firstDate: DateTime(1900),
-                  //             lastDate: DateTime.now(),
-                  //             builder: (context, child) {
-                  //               return Theme(
-                  //                 data: Theme.of(context).copyWith(
-                  //                   colorScheme: const ColorScheme.light(
-                  //                     primary: Colors.green,
-                  //                     onPrimary: Colors.white,
-                  //                     onSurface: Colors.purple,
-                  //                   ),
-                  //                   textButtonTheme: TextButtonThemeData(
-                  //                     style: TextButton.styleFrom(
-                  //                       elevation: 10,
-                  //                       backgroundColor:
-                  //                           Colors.black, // button text color
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //                 // child: child!,
-                  //                 child: MediaQuery(
-                  //                   data: MediaQuery.of(context)
-                  //                       .copyWith(alwaysUse24HourFormat: true),
-                  //                   child: child ?? Container(),
-                  //                 ),
-                  //               );
-                  //             },
-                  //           );
-                  //           if (selectedDate != null) {
-                  //             setState(() {
-                  //               _startDate = selectedDate;
-                  //             });
-                  //           }
-                  //         },
-                  //         decoration: InputDecoration(
-                  //           labelText: 'Start Date',
-                  //           border: OutlineInputBorder(),
-                  //           contentPadding: EdgeInsets.symmetric(
-                  //               vertical: 12, horizontal: 16),
-                  //         ),
-                  //         controller: TextEditingController(
-                  //             text:
-                  //                 DateFormat('dd-MM-yyyy').format(_startDate)),
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: 16.0),
-                  //     Expanded(
-                  //       child: TextFormField(
-                  //         onTap: () async {
-                  //           final DateTime? selectedDate = await showDatePicker(
-                  //             context: context,
-                  //             initialDate: _endDate,
-                  //             firstDate: DateTime(1900),
-                  //             lastDate: DateTime.now(),
-                  //             builder: (context, child) {
-                  //               return Theme(
-                  //                 data: Theme.of(context).copyWith(
-                  //                   colorScheme: const ColorScheme.light(
-                  //                     primary: Colors.green,
-                  //                     onPrimary: Colors.white,
-                  //                     onSurface: Colors.purple,
-                  //                   ),
-                  //                   textButtonTheme: TextButtonThemeData(
-                  //                     style: TextButton.styleFrom(
-                  //                       elevation: 10,
-                  //                       backgroundColor:
-                  //                           Colors.black, // button text color
-                  //                     ),
-                  //                   ),
-                  //                 ),
-                  //                 // child: child!,
-                  //                 child: MediaQuery(
-                  //                   data: MediaQuery.of(context)
-                  //                       .copyWith(alwaysUse24HourFormat: true),
-                  //                   child: child ?? Container(),
-                  //                 ),
-                  //               );
-                  //             },
-                  //           );
-                  //           if (selectedDate != null) {
-                  //             setState(() {
-                  //               _endDate = selectedDate;
-                  //             });
-                  //           }
-                  //         },
-                  //         decoration: InputDecoration(
-                  //           labelText: 'End Date',
-                  //           border: OutlineInputBorder(),
-                  //           contentPadding: EdgeInsets.symmetric(
-                  //               vertical: 12, horizontal: 16),
-                  //         ),
-                  //         controller: TextEditingController(
-                  //             text: DateFormat('dd-MM-yyyy').format(_endDate)),
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: 16.0),
-                  //     ElevatedButton(
-                  //       onPressed: () {
-                  //         updateData();
-                  //       },
-                  //       child: Text(
-                  //         'Get Data',
-                  //         style: TextStyle(
-                  //           fontSize: 20,
-                  //         ),
-                  //       ),
-                  //       style: ElevatedButton.styleFrom(
-                  //         primary: Colors.green,
-                  //         minimumSize: Size(80, 0),
-                  //         padding: EdgeInsets.symmetric(
-                  //             vertical: 20, horizontal: 24),
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(8),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: 16.0),
-                  //     ElevatedButton(
-                  //       onPressed: () async {
-                  //         await downloadTableDataAsCsv();
-                  //       },
-                  //       child: Text(
-                  //         'Download CSV',
-                  //         style: TextStyle(
-                  //           fontSize: 20,
-                  //         ),
-                  //       ),
-                  //       style: ElevatedButton.styleFrom(
-                  //         primary: Colors.green,
-                  //         minimumSize: Size(80, 0),
-                  //         padding: EdgeInsets.symmetric(
-                  //             vertical: 20, horizontal: 24),
-                  //         shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(8),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Row(
                     children: [
                       Expanded(
-                        child: InkWell(
+                        child: TextFormField(
                           onTap: () async {
                             final DateTime? selectedDate = await showDatePicker(
                               context: context,
@@ -313,11 +167,17 @@ class _MyHomePageState extends State<birdNet> {
                                     textButtonTheme: TextButtonThemeData(
                                       style: TextButton.styleFrom(
                                         elevation: 10,
-                                        backgroundColor: Colors.black,
+                                        backgroundColor:
+                                            Colors.black, // button text color
                                       ),
                                     ),
                                   ),
-                                  child: child!,
+                                  // child: child!,
+                                  child: MediaQuery(
+                                    data: MediaQuery.of(context)
+                                        .copyWith(alwaysUse24HourFormat: true),
+                                    child: child ?? Container(),
+                                  ),
                                 );
                               },
                             );
@@ -327,23 +187,20 @@ class _MyHomePageState extends State<birdNet> {
                               });
                             }
                           },
-                          child: TextFormField(
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              labelText: 'Start Date',
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 16),
-                            ),
-                            controller: TextEditingController(
-                              text: DateFormat('dd-MM-yyyy').format(_startDate),
-                            ),
+                          decoration: InputDecoration(
+                            labelText: 'Start Date',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 16),
                           ),
+                          controller: TextEditingController(
+                              text:
+                                  DateFormat('dd-MM-yyyy').format(_startDate)),
                         ),
                       ),
                       SizedBox(width: 16.0),
                       Expanded(
-                        child: InkWell(
+                        child: TextFormField(
                           onTap: () async {
                             final DateTime? selectedDate = await showDatePicker(
                               context: context,
@@ -361,11 +218,17 @@ class _MyHomePageState extends State<birdNet> {
                                     textButtonTheme: TextButtonThemeData(
                                       style: TextButton.styleFrom(
                                         elevation: 10,
-                                        backgroundColor: Colors.black,
+                                        backgroundColor:
+                                            Colors.black, // button text color
                                       ),
                                     ),
                                   ),
-                                  child: child!,
+                                  // child: child!,
+                                  child: MediaQuery(
+                                    data: MediaQuery.of(context)
+                                        .copyWith(alwaysUse24HourFormat: true),
+                                    child: child ?? Container(),
+                                  ),
                                 );
                               },
                             );
@@ -375,18 +238,14 @@ class _MyHomePageState extends State<birdNet> {
                               });
                             }
                           },
-                          child: TextFormField(
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              labelText: 'End Date',
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 16),
-                            ),
-                            controller: TextEditingController(
-                              text: DateFormat('dd-MM-yyyy').format(_endDate),
-                            ),
+                          decoration: InputDecoration(
+                            labelText: 'End Date',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 16),
                           ),
+                          controller: TextEditingController(
+                              text: DateFormat('dd-MM-yyyy').format(_endDate)),
                         ),
                       ),
                       SizedBox(width: 16.0),
