@@ -1953,10 +1953,10 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
             ),
             child: Text(
-              "BirdNet",
+              "Bird-Tunes",
               style: TextStyle(
                 color: Colors.white,
-                fontStyle: FontStyle.italic,
+                fontStyle: FontStyle.normal,
                 fontSize: 20,
               ),
             ),

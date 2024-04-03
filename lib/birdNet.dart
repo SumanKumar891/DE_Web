@@ -127,7 +127,7 @@ class _MyHomePageState extends State<birdNet> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'BirdNet Data for ' + widget.deviceId,
+          'Bird Calls for ' + widget.deviceId,
           style: TextStyle(
             fontSize: 20.0,
             letterSpacing: 1.0,
