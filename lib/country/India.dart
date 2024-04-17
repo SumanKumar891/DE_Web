@@ -214,7 +214,7 @@ class _INDIA_ScreenState extends State<INDIA_Screen> {
                               ),
                             ),
                           ),
-                           SizedBox(
+                              SizedBox(
                                   height: 40,
                                   child: Center(
                                     child: Tooltip(
