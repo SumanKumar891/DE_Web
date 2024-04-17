@@ -209,7 +209,7 @@ class _germanyState extends State<germanyScreen> {
                               ),
                             ),
                           ),
-                           SizedBox(
+                             SizedBox(
                                   height: 40,
                                   child: Center(
                                     child: Tooltip(
