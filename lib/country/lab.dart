@@ -210,15 +210,19 @@ class _LabScreenState extends State<LabScreen> {
                             ),
                           ),
                           SizedBox(
-                            height: 40,
-                            child: Center(
-                              child: Text(
-                                filterData[i].status,
-                                style: const TextStyle(
-                                    fontSize: 16, color: Colors.white),
-                              ),
-                            ),
-                          ),
+                                  height: 40,
+                                  child: Center(
+                                    child: Tooltip(
+                                      message:
+                                          'Last Active: ${filterData[i].lastActive}',
+                                      child: Text(
+                                        filterData[i].status,
+                                        style: const TextStyle(
+                                            fontSize: 16, color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                           SizedBox(
                             height: 40,
                             child: Center(
