@@ -2142,7 +2142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                  SizedBox(
+                                SizedBox(
                                   height: 40,
                                   child: Center(
                                     child: Tooltip(
