@@ -2142,13 +2142,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                  SizedBox(
                                   height: 40,
                                   child: Center(
-                                    child: Text(
-                                      deviceData[i].status,
-                                      style: const TextStyle(
-                                          fontSize: 16, color: Colors.white),
+                                    child: Tooltip(
+                                      message:
+                                          'Last Active: ${deviceData[i].lastActive}',
+                                      child: Text(
+                                        deviceData[i].status,
+                                        style: const TextStyle(
+                                            fontSize: 16, color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
