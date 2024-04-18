@@ -433,11 +433,6 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Pictures extends StatefulWidget {
@@ -448,9 +443,6 @@ class Pictures extends StatefulWidget {
 }
 
 class _PicturesState extends State<Pictures> {
-  // final String apiUrl =
-  //     'https://tulp6xq61c.execute-api.us-east-1.amazonaws.com/dep/images?device=02&date=23-02-2024';
-
   List<String> imageUrls = [];
   int batchSize = 10;
   int currentPage = 0;
@@ -472,20 +464,6 @@ class _PicturesState extends State<Pictures> {
             color: Colors.white,
           ),
         ),
-        // actions: [
-        //   PopupMenuButton<String>(
-        //     onSelected: (value) => onDownloadOptionSelected(value),
-        //     itemBuilder: (BuildContext context) {
-        //       return ['Download Current Batch', 'Download All Images']
-        //           .map((String choice) {
-        //         return PopupMenuItem<String>(
-        //           value: choice,
-        //           child: Text(choice),
-        //         );
-        //       }).toList();
-        //     },
-        //   ),
-        // ],
         backgroundColor: Colors.green,
         elevation: 0.0,
         centerTitle: true,
@@ -562,28 +540,6 @@ class _PicturesState extends State<Pictures> {
       initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(1990),
       lastDate: DateTime.now(),
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.green,
-              onPrimary: Colors.white,
-              onSurface: Colors.purple,
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                elevation: 10,
-                backgroundColor: Colors.black, // button text color
-              ),
-            ),
-          ),
-          // child: child!,
-          child: MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child ?? Container(),
-          ),
-        );
-      },
     );
 
     if (picked != null && picked != selectedDate) {
@@ -683,10 +639,10 @@ class _PicturesState extends State<Pictures> {
   //     File file = File(filePath);
   //     await file.writeAsBytes(response.bodyBytes);
 
-  //     // Display a toast or any other message to indicate the download success
-  //     Fluttertoast.showToast(msg: 'Downloaded: $filePath');
-  //   } else {
-  //     throw Exception('Failed to download image: $imageUrl');
-  //   }
-  // }
-}
+//   //     // Display a toast or any other message to indicate the download success
+//   //     Fluttertoast.showToast(msg: 'Downloaded: $filePath');
+//   //   } else {
+//   //     throw Exception('Failed to download image: $imageUrl');
+//   //   }
+//   // }
+// }
