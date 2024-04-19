@@ -25,6 +25,11 @@ class _PicturesState extends State<Pictures> {
     fetchImages(widget.deviceId, _startDate!); // Fetch images initially
   }
 
+  Future<void> _refreshData() async {
+    // Fetch updated images based on the current start date
+    await fetchImages(widget.deviceId, _startDate!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +42,7 @@ class _PicturesState extends State<Pictures> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.brown[400],
         elevation: 0.0,
         centerTitle: true,
       ),
@@ -47,12 +52,13 @@ class _PicturesState extends State<Pictures> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
                     decoration: InputDecoration(
-                      labelText: 'Start Date',
+                      labelText: 'Select Date',
                       border: OutlineInputBorder(),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -62,23 +68,32 @@ class _PicturesState extends State<Pictures> {
                           ? DateFormat('yyyy-MM-dd').format(_startDate!)
                           : '',
                     ),
-                    onTap: () => _selectDate(
-                        context), // Use _selectDate for date field tap
+                    onTap: () => _selectDate(context),
                   ),
                 ),
                 SizedBox(
-                    width: 16.0), // Add spacing between date field and button
+                    width: 16.0), // Add spacing between date field and buttons
                 ElevatedButton(
                   onPressed: () => _downloadAllImages(),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors
-                        .green, // Set the button's background color to green
+                    primary: Colors.brown[600],
+                    // Set button's background color to green
                   ),
                   child: Text('Links for Images'),
                 ),
+                SizedBox(width: 16.0), // Add spacing between buttons
+                ElevatedButton.icon(
+                  onPressed: _refreshData,
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors
+                        .brown[600], // Set button's background color to blue
+                  ),
+                  icon: Icon(Icons.refresh), // Add refresh icon
+                  label: Text('Refresh'),
+                ),
               ],
             ),
-            SizedBox(height: 16.0), // Add spacing between button and image list
+            SizedBox(height: 16.0), // Add spacing before text and image list
             Text(
               'Total Images: ${imageUrls.length}',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -114,7 +129,7 @@ class _PicturesState extends State<Pictures> {
       setState(() {
         _startDate = picked;
       });
-      fetchImages(
+      await fetchImages(
           widget.deviceId, _startDate!); // Fetch images on date selection
     }
   }
@@ -144,15 +159,23 @@ class _PicturesState extends State<Pictures> {
   }
 
   void _downloadAllImages() {
+    // Generate text file content with total count and image URLs
     int totalCount = imageUrls.length;
     String concatenatedUrls = imageUrls.join('\n');
     String fileContent = 'Total Images: $totalCount\n$concatenatedUrls';
 
+    // Encode content as UTF-8
     List<int> encodedContent = utf8.encode(fileContent);
+
+    // Create blob URL for download
     String blobUrl = 'data:application/octet-stream;charset=utf-8;base64,' +
         base64Encode(encodedContent);
+
+    // Create anchor element for download
     html.AnchorElement anchorElement = html.AnchorElement(href: blobUrl)
       ..setAttribute('download', 'images.txt');
+
+    // Trigger download
     anchorElement.click();
   }
 }
