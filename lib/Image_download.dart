@@ -690,7 +690,6 @@
 //   //   }
 //   // }
 // }
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -772,6 +771,11 @@ class _PicturesState extends State<Pictures> {
               ],
             ),
             SizedBox(height: 16.0), // Add spacing between button and image list
+            Text(
+              'Total Images: ${imageUrls.length}',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0), // Add spacing between text and image list
             Expanded(
               child: ListView.builder(
                 itemCount: imageUrls.length,
@@ -832,10 +836,13 @@ class _PicturesState extends State<Pictures> {
   }
 
   void _downloadAllImages() {
+    int totalCount = imageUrls.length;
     String concatenatedUrls = imageUrls.join('\n');
-    String blobUrl = 'data:application/octet-stream;charset=utf-16le;base64,' +
-        base64Encode(utf8.encode(concatenatedUrls));
+    String fileContent = 'Total Images: $totalCount\n$concatenatedUrls';
 
+    List<int> encodedContent = utf8.encode(fileContent);
+    String blobUrl = 'data:application/octet-stream;charset=utf-8;base64,' +
+        base64Encode(encodedContent);
     html.AnchorElement anchorElement = html.AnchorElement(href: blobUrl)
       ..setAttribute('download', 'images.txt');
     anchorElement.click();
