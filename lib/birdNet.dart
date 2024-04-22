@@ -1,14 +1,42 @@
-import 'dart:html';
-import 'dart:io';
+// ignore_for_file: unused_local_variable
 
+import 'dart:html';
+import 'dart:html' as html;
+import 'dart:io';
+import 'dart:io' as io;
+import 'dart:js' as js;
+import 'package:aws_common/aws_common.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+// import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:aws_common/web.dart';
 import 'package:path_provider/path_provider.dart';
+// import 'package:amplify_flutter/amplify.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:typed_data';
+import 'package:path/path.dart' as path;
+import 'package:flutter/services.dart' show PlatformException;
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:http_parser/http_parser.dart';
+// class MinioClient {
+//   final String endPoint;
+//   final String accessKey;
+//   final String secretKey;
+//   final bool useSSL;
+
+//   MinioClient({
+//     required this.endPoint,
+//     required this.accessKey,
+//     required this.secretKey,
+//     this.useSSL = false,
+//   });
+
+//   // Add methods for interacting with MinIO server here
+// }
 
 class birdNet extends StatefulWidget {
   final String deviceId;
@@ -33,6 +61,8 @@ class _MyHomePageState extends State<birdNet> {
     _startDate = DateTime.now();
     _endDate = DateTime.now();
     _searchController = TextEditingController();
+    // Amplify.addPlugins([AmplifyStorageS3()]);
+    // configureAmplify();
   }
 
   @override
@@ -58,7 +88,7 @@ class _MyHomePageState extends State<birdNet> {
       setState(() {
         tableData = jsonData.map((item) => ApiData.fromJson(item)).toList();
         // Sort the tableData list based on timestamp in descending order
-        tableData.sort((a, b) => DateFormat('dd-MM-yyyy_HH-mm-ss')
+        tableData.sort((b, a) => DateFormat('dd-MM-yyyy_HH-mm-ss')
             .parse(b.timestamp)
             .compareTo(DateFormat('dd-MM-yyyy_HH-mm-ss').parse(a.timestamp)));
       });
@@ -91,6 +121,52 @@ class _MyHomePageState extends State<birdNet> {
       }
     } catch (e) {
       print('Error downloading file: $e');
+    }
+  }
+
+  Future<void> uploadAudioToS3(String bucket, String filename) async {
+    try {
+      // Open file picker to select a file
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['mp3', 'mp4', 'mpeg'],
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        final Uint8List fileBytes = result.files.first.bytes!;
+        final String fileExtension =
+            path.extension(result.files.first.name!).toLowerCase();
+
+        // Set the content type based on file extension
+        String contentType = 'application/octet-stream'; // Default content type
+        if (fileExtension == '.mp3') {
+          contentType = 'audio/mpeg';
+        } else if (fileExtension == '.mp4') {
+          contentType = 'video/mp4';
+        }
+
+        final String apiUrl =
+            'https://9ryl4dzduk.execute-api.us-east-1.amazonaws.com/dev/$bucket/$filename';
+
+        // Prepare the HTTP request with streamed body
+        final request = http.Request('PUT', Uri.parse(apiUrl))
+          ..headers['Content-Type'] = contentType
+          ..bodyBytes = fileBytes;
+
+        // Send the HTTP request
+        final response = await http.Client().send(request);
+
+        // Handle response
+        if (response.statusCode == 200) {
+          print('File uploaded successfully');
+        } else {
+          print('File upload failed with status code: ${response.statusCode}');
+        }
+      } else {
+        print('No file selected');
+      }
+    } catch (e) {
+      print('File upload error: $e');
     }
   }
 
@@ -134,7 +210,7 @@ class _MyHomePageState extends State<birdNet> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 186, 97, 113),
         elevation: 0.0,
         centerTitle: true,
       ),
@@ -260,7 +336,7 @@ class _MyHomePageState extends State<birdNet> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          primary: Color.fromARGB(255, 224, 120, 15),
                           minimumSize: Size(80, 0),
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 24),
@@ -281,7 +357,32 @@ class _MyHomePageState extends State<birdNet> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
+                          primary: Color.fromARGB(255, 224, 120, 15),
+                          minimumSize: Size(80, 0),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 24),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      ElevatedButton(
+                        onPressed: () async {
+                          String timestamp = DateFormat('dd-MM-yyyy_HH-mm-ss')
+                              .format(DateTime.now());
+                          String filename = 'S10_$timestamp.mp3';
+                          String bucketName = 'birdnet-sagemaker';
+                          await uploadAudioToS3(bucketName, filename);
+                        },
+                        child: Text(
+                          'Upload',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromARGB(255, 224, 120, 15),
                           minimumSize: Size(80, 0),
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 24),
@@ -303,7 +404,7 @@ class _MyHomePageState extends State<birdNet> {
                           style: TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -322,7 +423,7 @@ class _MyHomePageState extends State<birdNet> {
                             'Index',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -372,7 +473,7 @@ class _MyHomePageState extends State<birdNet> {
                             'Timestamp',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -386,7 +487,7 @@ class _MyHomePageState extends State<birdNet> {
                             'Common Name',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -400,7 +501,7 @@ class _MyHomePageState extends State<birdNet> {
                             'Scientific Name',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -414,7 +515,7 @@ class _MyHomePageState extends State<birdNet> {
                             'Confidence',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -425,10 +526,10 @@ class _MyHomePageState extends State<birdNet> {
                           width:
                               100, // Set a fixed width for the Download Mp3 column
                           child: Text(
-                            'Download Mp3',
+                            'Download',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 20,
                             ),
                           ),
                         ),
@@ -452,6 +553,7 @@ class _MyHomePageState extends State<birdNet> {
                                         (entry.key + 1).toString(),
                                         style: TextStyle(
                                           color: Colors.black,
+                                          fontSize: 20,
                                         ),
                                       ),
                                     ],
@@ -468,6 +570,7 @@ class _MyHomePageState extends State<birdNet> {
                                         entry.value.timestamp,
                                         style: TextStyle(
                                           color: Colors.black,
+                                          fontSize: 20,
                                         ),
                                       ),
                                     ],
@@ -495,6 +598,7 @@ class _MyHomePageState extends State<birdNet> {
                                                     detection.commonName,
                                                 style: TextStyle(
                                                   color: Colors.black,
+                                                  fontSize: 20,
                                                 ),
                                               ),
                                               if (detection !=
@@ -528,6 +632,7 @@ class _MyHomePageState extends State<birdNet> {
                                                     detection.scientificName,
                                                 style: TextStyle(
                                                   color: Colors.black,
+                                                  fontSize: 20,
                                                 ),
                                               ),
                                               if (detection !=
@@ -562,6 +667,7 @@ class _MyHomePageState extends State<birdNet> {
                                                         .toStringAsFixed(3),
                                                 style: TextStyle(
                                                   color: Colors.black,
+                                                  fontSize: 20,
                                                 ),
                                               ),
                                               if (detection !=

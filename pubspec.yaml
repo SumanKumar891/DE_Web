@@ -83,6 +83,8 @@ dependencies:
   numberpicker: ^2.1.2
   battery_info: ^1.0.7
   fluttertoast: ^8.2.4
+  aws_common: ^0.4.2+5
+  file_picker: ^5.3.1
 
 dev_dependencies:
   flutter_test:
