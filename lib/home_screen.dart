@@ -1978,11 +1978,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () => _filter(context),
                 label: const Text('Countries')),
           ),
-          FloatingActionButton.extended(
-              heroTag: 'btn3',
-              backgroundColor: buttonColor,
-              onPressed: () => _dialogBuilder(context),
-              label: const Text('Register a new Device +')),
+          // FloatingActionButton.extended(
+          //     heroTag: 'btn3',
+          //     backgroundColor: buttonColor,
+          //     onPressed: () => _dialogBuilder(context),
+          //     label: const Text('Register a new Device +')),
         ],
       ),
       body: FutureBuilder<String>(
