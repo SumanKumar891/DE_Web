@@ -696,6 +696,7 @@ class Inference extends StatefulWidget {
 // List<apiData> chartData = [];
 List<apiData> chartData1 = [];
 List<apiData> chartData2 = [];
+List<apiData> chartData3 = [];
 // List<apiData> chartData3 = [];
 
 class _MyHomePageState extends State<Inference> {
@@ -813,6 +814,7 @@ class _MyHomePageState extends State<Inference> {
         "DeviceId",
         "APISME",
         "BOMUTE",
+        "OSMACO",
       ]
     ];
 
@@ -836,6 +838,12 @@ class _MyHomePageState extends State<Inference> {
       final predictions1 = json.decode(jsonData[0]["body"][i]['Predictions']);
       if (predictions1 != null && predictions1['BOMUTE'] != null) {
         row.add(predictions1['BOMUTE']);
+      } else {
+        row.add("");
+      }
+      final predictions2 = json.decode(jsonData[0]["body"][i]['Predictions']);
+      if (predictions2 != null && predictions2['OSMACO'] != null) {
+        row.add(predictions2['OSMACO']);
       } else {
         row.add("");
       }
@@ -937,6 +945,8 @@ class _MyHomePageState extends State<Inference> {
       data = parsed['body'];
       chartData2.clear();
       chartData1.clear();
+      chartData3.clear();
+
       for (dynamic i in data) {
         print(i['Predictions'] != '{}');
         if (i['Predictions'] != '{}') {
@@ -958,6 +968,18 @@ class _MyHomePageState extends State<Inference> {
           if (bomuteParsedValue != null) {
             count = bomuteParsedValue;
             chartData1.add(apiData.fromJson(i, count));
+          }
+        }
+      }
+      for (dynamic i in data) {
+        print(i['Predictions'] != '{}');
+        if (i['Predictions'] != '{}') {
+          print(json.decode(i['Predictions'])['OSMACO']);
+          int? osmacoParsedValue = (json.decode(i['Predictions'])['OSMACO']);
+          print('osmacoParsedValue:' '$osmacoParsedValue');
+          if (osmacoParsedValue != null) {
+            count = osmacoParsedValue;
+            chartData3.add(apiData.fromJson(i, count));
           }
         }
       }
@@ -1602,6 +1624,151 @@ class _MyHomePageState extends State<Inference> {
                                   isVisible: true,
                                 ),
                                 dataSource: chartData2,
+                                xValueMapper: (apiData sales, _) =>
+                                    sales.TimeStamp,
+                                yValueMapper: (apiData sales, _) =>
+                                    sales.Predictions,
+                                // yValueMapper: (apiData sales, _) {
+                                //   final apismeValue = sales.Predictions["APISME"];
+                                //   print("APISME Value: $apismeValue");
+                                //   return apismeValue != null
+                                //       ? int.parse(apismeValue)
+                                //       : 0;
+                                // },
+
+                                // double.parse(sales.Predictions['OSMACO'].toString()),
+                                // name: ((apiData sales, _) => sales.TimeStamp) [0],
+                                // name: apiData.Class,
+                                // legendItemText: (apiData sales, _) => sales.Class,
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: false),
+                                enableTooltip: true,
+                                animationDuration: 0,
+                                color: Colors.blue,
+                              )
+                            ],
+                            zoomPanBehavior: ZoomPanBehavior(
+                              enablePinching: true,
+                              enablePanning: true,
+                              enableDoubleTapZooming: true,
+                              enableMouseWheelZooming: true,
+                              enableSelectionZooming: true,
+                              selectionRectBorderWidth: 1.0,
+                              selectionRectBorderColor: Colors.blue,
+                              selectionRectColor:
+                                  Colors.transparent.withOpacity(0.3),
+                              zoomMode: ZoomMode.x,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20.0),
+                        Container(
+                          height: 400,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                blurRadius: 5.0,
+                                spreadRadius: 1.0,
+                                offset: Offset(0.0, 0.0),
+                              ),
+                            ],
+                          ),
+                          child: SfCartesianChart(
+                            legend: Legend(
+                              isVisible: false,
+                              // name:legend,
+                              position: LegendPosition.top,
+                              offset: const Offset(550, -150),
+                              // title: LegendTitle(
+                              //     text: 'Insect',
+                              //     textStyle: TextStyle(
+                              //         color: Colors.black,
+                              //         fontSize: 15,
+                              //         fontStyle: FontStyle.italic,
+                              //         fontWeight: FontWeight.w900)),
+                              // toggleSeriesVisibility: true,
+                              // Border color and border width of legend
+                              overflowMode: LegendItemOverflowMode.wrap,
+                              // borderColor: Colors.black,
+                              // borderWidth: 2
+                            ),
+                            plotAreaBackgroundColor: Colors.white,
+                            primaryXAxis: CategoryAxis(
+                              title: AxisTitle(
+                                text: 'Time',
+                                textStyle:
+                                    TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              labelRotation: 45,
+                            ),
+                            primaryYAxis: NumericAxis(
+                              title: AxisTitle(
+                                text: 'Insect Count',
+                                textStyle:
+                                    TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              axisLine: AxisLine(width: 0),
+                              majorGridLines: MajorGridLines(width: 0.5),
+                            ),
+                            // tooltipBehavior: _tooltipBehavior,
+                            tooltipBehavior: TooltipBehavior(
+                              enable: true,
+                              color: Colors.white,
+                              // textStyle: TextStyle(color: Colors.white),
+                              builder: (dynamic data,
+                                  dynamic point,
+                                  dynamic series,
+                                  int pointIndex,
+                                  int seriesIndex) {
+                                final apiData item = chartData3[pointIndex];
+                                return Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 245, 214, 250),
+                                    borderRadius: BorderRadius.circular(5),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.purple, blurRadius: 3)
+                                    ],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text("TimeStamp: ${item.TimeStamp}"),
+                                      Text("OSMACO Count: ${item.Predictions}"),
+                                      // Text("Class: ${item.Class}"),
+                                    ],
+                                  ),
+                                );
+                              },
+                              // customize the tooltip color
+                            ),
+                            title: ChartTitle(
+                              text: 'GRAPH FOR OSMACO',
+                              textStyle: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            // title: ChartTitle(
+                            //   text: widget.deviceId,
+                            //   textStyle: TextStyle(fontWeight: FontWeight.bold),
+                            // ),
+                            series: <ChartSeries<apiData, String>>[
+                              LineSeries<apiData, String>(
+                                // Text("Class: ${item.Class}"),
+                                // name: apiData.Class as dynamic,
+                                // name: 'Apis Mellifera',
+                                name: 'OSMACO',
+                                markerSettings: const MarkerSettings(
+                                  height: 3.0,
+                                  width: 3.0,
+                                  borderColor: Colors.green,
+                                  isVisible: true,
+                                ),
+                                dataSource: chartData3,
                                 xValueMapper: (apiData sales, _) =>
                                     sales.TimeStamp,
                                 yValueMapper: (apiData sales, _) =>
