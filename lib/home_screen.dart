@@ -1404,6 +1404,7 @@ import 'package:detest/country/UsaData.dart';
 import 'package:detest/country/_France.dart';
 import 'package:detest/country/India.dart';
 import 'package:detest/country/lab.dart';
+import 'package:detest/country/oldDevice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:detest/device_screen.dart';
@@ -1419,6 +1420,7 @@ import 'package:intl/intl.dart';
 import 'filteredData.dart';
 import 'package:detest/Battery.dart';
 import 'birdNet.dart';
+import 'package:detest/country/oldDevice.dart';
 
 class HomeScreen extends StatefulWidget {
   final String email;
@@ -1439,6 +1441,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late String result;
   void selectedCountry = "";
   late int sleepDuration = 0;
+
   bool _hovering = false;
   bool condition = false;
   @override
@@ -1983,6 +1986,20 @@ class _HomeScreenState extends State<HomeScreen> {
           //     backgroundColor: buttonColor,
           //     onPressed: () => _dialogBuilder(context),
           //     label: const Text('Register a new Device +')),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => oldScreen()),
+                );
+              });
+            },
+            child: Text("Old Devices"),
+            style: ElevatedButton.styleFrom(
+                // elevation: 10,
+                backgroundColor: buttonColor),
+          ),
         ],
       ),
       body: FutureBuilder<String>(
@@ -1991,6 +2008,10 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.hasData) {
             if (snapshot.data == '200') {
               // print(data);
+              List<Device> newDeviceData = deviceData
+                  .where((device) => device.deviceId.length != 5)
+                  .toList();
+              ;
               return ListView(
                 children: [
                   const SizedBox(
@@ -2093,7 +2114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  for (int i = 0; i < deviceData.length; i++)
+                  for (int i = 0; i < newDeviceData.length; i++)
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 2),
@@ -2136,7 +2157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 40,
                                   child: Center(
                                     child: Text(
-                                      deviceData[i].deviceId,
+                                      newDeviceData[i].deviceId,
                                       style: const TextStyle(
                                           fontSize: 16, color: Colors.white),
                                     ),
@@ -2147,9 +2168,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Center(
                                     child: Tooltip(
                                       message:
-                                          'Last Active: ${deviceData[i].lastActive}',
+                                          'Last Active: ${newDeviceData[i].lastActive}',
                                       child: Text(
-                                        deviceData[i].status,
+                                        newDeviceData[i].status,
                                         style: const TextStyle(
                                             fontSize: 16, color: Colors.white),
                                       ),
@@ -2166,7 +2187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           MaterialPageRoute(
                                             builder: (_) => Weather(
                                               // values: [],
-                                              deviceId: deviceData[i].deviceId,
+                                              deviceId:
+                                                  newDeviceData[i].deviceId,
                                             ),
                                           ),
                                         );
@@ -2192,7 +2214,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           MaterialPageRoute(
                                             builder: (_) => Inference(
                                               // values: [],
-                                              deviceId: deviceData[i].deviceId,
+                                              deviceId:
+                                                  newDeviceData[i].deviceId,
                                             ),
                                           ),
                                         );
@@ -2217,7 +2240,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (_) => Pictures(
-                                              deviceId: deviceData[i].deviceId,
+                                              deviceId:
+                                                  newDeviceData[i].deviceId,
                                             ),
                                           ),
                                         );
@@ -2294,7 +2318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               MaterialPageRoute(
                                                 builder: (_) => Battery(
                                                   deviceId:
-                                                      deviceData[i].deviceId,
+                                                      newDeviceData[i].deviceId,
                                                 ),
                                               ),
                                             );
