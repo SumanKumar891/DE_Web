@@ -1422,6 +1422,7 @@ class _MyHomePageState extends State<Inference> {
                               ),
                               axisLine: AxisLine(width: 0),
                               majorGridLines: MajorGridLines(width: 0.5),
+                              interval: 1,
                             ),
                             // tooltipBehavior: _tooltipBehavior,
                             tooltipBehavior: TooltipBehavior(
@@ -1567,6 +1568,7 @@ class _MyHomePageState extends State<Inference> {
                               ),
                               axisLine: AxisLine(width: 0),
                               majorGridLines: MajorGridLines(width: 0.5),
+                              interval: 1,
                             ),
                             // tooltipBehavior: _tooltipBehavior,
                             tooltipBehavior: TooltipBehavior(
@@ -1712,6 +1714,7 @@ class _MyHomePageState extends State<Inference> {
                               ),
                               axisLine: AxisLine(width: 0),
                               majorGridLines: MajorGridLines(width: 0.5),
+                              interval: 1,
                             ),
                             // tooltipBehavior: _tooltipBehavior,
                             tooltipBehavior: TooltipBehavior(
