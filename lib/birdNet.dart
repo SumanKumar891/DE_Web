@@ -210,7 +210,7 @@ class _MyHomePageState extends State<birdNet> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 186, 97, 113),
+        backgroundColor: Colors.blue.shade800,
         elevation: 0.0,
         centerTitle: true,
       ),
@@ -336,7 +336,7 @@ class _MyHomePageState extends State<birdNet> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 224, 120, 15),
+                          primary: Colors.blue[900],
                           minimumSize: Size(80, 0),
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 24),
@@ -357,7 +357,7 @@ class _MyHomePageState extends State<birdNet> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 224, 120, 15),
+                          primary: Colors.blue[900],
                           minimumSize: Size(80, 0),
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 24),
@@ -382,7 +382,7 @@ class _MyHomePageState extends State<birdNet> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 224, 120, 15),
+                          primary: Colors.blue[900],
                           minimumSize: Size(80, 0),
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 24),
@@ -402,7 +402,7 @@ class _MyHomePageState extends State<birdNet> {
                         child: Text(
                           errorMessage,
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Colors.blue[900],
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),

@@ -11419,6 +11419,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 --------------------------------------------------------------------------------
 http
 http_parser
+matcher
 path
 source_span
 string_scanner

@@ -1,4 +1,5 @@
 {
     "cmake.configureOnOpen": true,
-    "cmake.sourceDirectory": "C:/Users/Awadh/newgitwebde/DE_WebApp/linux"
+    "cmake.sourceDirectory": "C:/Users/Awadh/newgitwebde/DE_WebApp/linux",
+    "dart.flutterSdkPath": "~/flutter"
 }
