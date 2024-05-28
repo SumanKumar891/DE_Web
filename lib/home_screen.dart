@@ -1436,12 +1436,15 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<String> response;
   late TextEditingController _serialId;
   late TextEditingController _securityKey;
-  late TextEditingController _searchController;
+  //late TextEditingController _searchController;
   late TextEditingController dateController;
   late TextEditingController timeinput;
   late String result;
   void selectedCountry = "";
   late int sleepDuration = 0;
+
+  TextEditingController _searchController = TextEditingController();
+  List<Device> filteredDeviceData = [];
 
   bool _hovering = false;
   bool condition = false;
@@ -1452,6 +1455,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _securityKey = TextEditingController();
     dateController = TextEditingController();
     timeinput = TextEditingController();
+
+    _searchController.addListener(_filterDevices);
     super.initState();
   }
 
@@ -1459,7 +1464,19 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _serialId.dispose();
     _securityKey.dispose();
+
+    _searchController.dispose();
     super.dispose();
+  }
+
+  void _filterDevices() {
+    setState(() {
+      filteredDeviceData = deviceData
+          .where((device) => device.deviceId
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase()))
+          .toList();
+    });
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -1976,6 +1993,28 @@ class _HomeScreenState extends State<HomeScreen> {
           //     primary: Colors.green, // Change the background color to blue
           //   ),
           // ),
+          Container(
+            width: 200,
+            height: 50,
+            margin: EdgeInsets.only(bottom: 1, top: 5),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search Device ID',
+                fillColor: Colors.transparent,
+                hintStyle: TextStyle(color: Colors.white, fontSize: 20),
+                filled: true,
+
+                // border: OutlineInputBorder(
+                //   borderRadius: BorderRadius.circular(10),
+                // ),
+              ),
+              style: TextStyle(
+                color: Colors.white, // Change text color here
+              ),
+            ),
+          ),
+          SizedBox(width: 20),
           ElevatedButton(
             onPressed: () {
               _openBirdNetDialog(context);
@@ -2035,11 +2074,11 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == '200') {
-              // print(data);
-              List<Device> newDeviceData = deviceData
-                  .where((device) => device.deviceId.length != 5)
-                  .toList();
-              ;
+              filteredDeviceData = filteredDeviceData.isNotEmpty
+                  ? filteredDeviceData
+                  : deviceData
+                      .where((device) => device.deviceId.length != 5)
+                      .toList();
               return ListView(
                 children: [
                   const SizedBox(
@@ -2069,7 +2108,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             4: FractionColumnWidth(0.15),
                             5: FractionColumnWidth(0.15),
                             6: FractionColumnWidth(0.18)
-                            // 6: FractionColumnWidth(0.14),
                           },
                           children: const <TableRow>[
                             TableRow(children: <Widget>[
@@ -2142,7 +2180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  for (int i = 0; i < newDeviceData.length; i++)
+                  for (int i = 0; i < filteredDeviceData.length; i++)
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 2),
@@ -2167,7 +2205,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               4: FractionColumnWidth(0.15),
                               5: FractionColumnWidth(0.15),
                               6: FractionColumnWidth(0.18)
-                              // 6: FractionColumnWidth(0.14)
                             },
                             children: [
                               TableRow(children: [
@@ -2185,7 +2222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 40,
                                   child: Center(
                                     child: Text(
-                                      newDeviceData[i].deviceId,
+                                      filteredDeviceData[i].deviceId,
                                       style: const TextStyle(
                                           fontSize: 16, color: Colors.white),
                                     ),
@@ -2196,9 +2233,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Center(
                                     child: Tooltip(
                                       message:
-                                          'Last Active: ${newDeviceData[i].lastActive}',
+                                          'Last Active: ${filteredDeviceData[i].lastActive}',
                                       child: Text(
-                                        newDeviceData[i].status,
+                                        filteredDeviceData[i].status,
                                         style: const TextStyle(
                                             fontSize: 16, color: Colors.white),
                                       ),
@@ -2210,13 +2247,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Center(
                                     child: IconButton(
                                       onPressed: () {
-                                        // print('Status');
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (_) => Weather(
-                                              // values: [],
-                                              deviceId:
-                                                  newDeviceData[i].deviceId,
+                                              deviceId: filteredDeviceData[i]
+                                                  .deviceId,
                                             ),
                                           ),
                                         );
@@ -2225,9 +2260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Icons.cloud,
                                         color: backgroundColor,
                                       ),
-                                      // label: const Text('TempDB Data'),
                                       style: ElevatedButton.styleFrom(
-                                          // elevation: 10,
                                           backgroundColor: Colors.white10),
                                     ),
                                   ),
@@ -2237,13 +2270,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Center(
                                     child: IconButton(
                                       onPressed: () {
-                                        // print('Inference');
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (_) => Inference(
-                                              // values: [],
-                                              deviceId:
-                                                  newDeviceData[i].deviceId,
+                                              deviceId: filteredDeviceData[i]
+                                                  .deviceId,
                                             ),
                                           ),
                                         );
@@ -2252,9 +2283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Icons.insert_chart,
                                         color: backgroundColor,
                                       ),
-                                      // label: const Text('Inferenced Data'),
                                       style: ElevatedButton.styleFrom(
-                                          // elevation: 10,
                                           backgroundColor: Colors.white10),
                                     ),
                                   ),
@@ -2264,12 +2293,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Center(
                                     child: IconButton(
                                       onPressed: () {
-                                        // print('Status');
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (_) => Pictures(
-                                              deviceId:
-                                                  newDeviceData[i].deviceId,
+                                              deviceId: filteredDeviceData[i]
+                                                  .deviceId,
                                             ),
                                           ),
                                         );
@@ -2278,61 +2306,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Icons.image,
                                         color: backgroundColor,
                                       ),
-                                      // label: const Text('TempDB Data'),
                                       style: ElevatedButton.styleFrom(
-                                          // elevation: 10,
                                           backgroundColor: Colors.white10),
                                     ),
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: 40,
-                                //   child: Center(
-                                //     child: FutureBuilder<String>(
-                                //       future: fetchBatteryPercentage(
-                                //           deviceData[i].deviceId),
-                                //       builder: (context, snapshot) {
-                                //         if (snapshot.connectionState ==
-                                //             ConnectionState.waiting) {
-                                //           return CircularProgressIndicator(
-                                //             color: Colors.green,
-                                //           );
-                                //         } else if (snapshot.hasError) {
-                                //           return Text(
-                                //               'Error fetching battery percentage');
-                                //         } else {
-                                //           return Row(
-                                //             mainAxisAlignment:
-                                //                 MainAxisAlignment.center,
-                                //             children: [
-                                //               IconButton(
-                                //                 onPressed: () {
-                                //                   Navigator.of(context).push(
-                                //                     MaterialPageRoute(
-                                //                       builder: (_) => Battery(
-                                //                         deviceId: deviceData[i]
-                                //                             .deviceId,
-                                //                       ),
-                                //                     ),
-                                //                   );
-                                //                 },
-                                //                 icon: const Icon(
-                                //                   Icons.battery_6_bar,
-                                //                   color: backgroundColor,
-                                //                 ),
-                                //               ),
-                                //               // Text(
-                                //               //   snapshot.data ?? 'N/A',
-                                //               //   style: TextStyle(
-                                //               //       color: Colors.white),
-                                //               // ),
-                                //             ],
-                                //           );
-                                //         }
-                                //       },
-                                //     ),
-                                //   ),
-                                // ),
                                 SizedBox(
                                   height: 40,
                                   child: Center(
@@ -2346,7 +2324,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               MaterialPageRoute(
                                                 builder: (_) => Battery(
                                                   deviceId:
-                                                      newDeviceData[i].deviceId,
+                                                      filteredDeviceData[i]
+                                                          .deviceId,
                                                 ),
                                               ),
                                             );
@@ -2359,7 +2338,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                                   ),
-                                )
+                                ),
                               ]),
                             ],
                           ),
@@ -2376,9 +2355,10 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
           return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.green,
-          ));
+            child: CircularProgressIndicator(
+              color: Colors.green,
+            ),
+          );
         }),
       ),
     );
