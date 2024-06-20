@@ -24,7 +24,7 @@ class FrancePage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => franceScreen()),
                   );
                 },
-                child: Text('Deployment 2023'),
+                child: Text('Deployment May 2023'),
                 style: ElevatedButton.styleFrom(
                     // elevation: 10,
                     minimumSize: Size(200, 50),
@@ -38,7 +38,7 @@ class FrancePage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => franceNewScreen()),
                   );
                 },
-                child: Text('Deployment 2024'),
+                child: Text('Deployment June 2024'),
                 style: ElevatedButton.styleFrom(
                     // elevation: 10,
                     minimumSize: Size(200, 50),
