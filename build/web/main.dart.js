@@ -50383,7 +50383,7 @@ A.a2q.prototype={
 aq(){A.ck(null)
 A.ck(null)
 this.aG()},
-I(a){var s,r,q,p,o,n,m,l=this,k=null,j=t.p,i=A.fS(k,B.a0,k,k,A.cq(A.b([B.bv,A.aD("France Deployment 2024 DATA",k,k,k,k,k,k,k,k)],j),B.x,B.p,B.r,k)),h=A.b([B.bw,new A.aJ(B.ai,A.ar(B.k,new A.aJ(B.bE,A.e9(k,B.c_,B.as),k),B.h,k,k,B.ah,k,50,k,k,k,k,k,k),k)],j)
+I(a){var s,r,q,p,o,n,m,l=this,k=null,j=t.p,i=A.fS(k,B.a0,k,k,A.cq(A.b([B.bv,A.aD("France Deployment June 2024 DATA",k,k,k,k,k,k,k,k)],j),B.x,B.p,B.r,k)),h=A.b([B.bw,new A.aJ(B.ai,A.ar(B.k,new A.aJ(B.bE,A.e9(k,B.c_,B.as),k),B.h,k,k,B.ah,k,50,k,k,k,k,k,k),k)],j)
 for(s=l.r,r=t._,q=0;q<s.length;q=p){p=q+1
 o=s[q]
 n=o.a
