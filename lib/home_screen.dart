@@ -1405,6 +1405,7 @@ import 'package:detest/country/UkData.dart';
 import 'package:detest/country/UsaData.dart';
 import 'package:detest/country/_France.dart';
 import 'package:detest/country/India.dart';
+import 'package:detest/country/franceDeploymant.dart';
 import 'package:detest/country/lab.dart';
 import 'package:detest/country/oldDevice.dart';
 import 'package:flutter/cupertino.dart';
@@ -1705,7 +1706,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => franceScreen()),
+                                builder: (context) => FrancePage()),
                           );
                         });
                       },
@@ -1715,33 +1716,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       label: const Text(
                         'France',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          // elevation: 10,
-                          backgroundColor: Color.fromARGB(164, 14, 211, 7)),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => franceNewScreen()),
-                          );
-                        });
-                      },
-                      icon: const Icon(
-                        Icons.logout,
-                        color: backgroundColor,
-                      ),
-                      label: const Text(
-                        'France2',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       style: ElevatedButton.styleFrom(
