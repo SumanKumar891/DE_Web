@@ -26,6 +26,11 @@ class _franceScreenState extends State<franceScreen> {
           device.deviceId == "D0502" ||
           device.deviceId == "D0503" ||
           device.deviceId == "D0504" ||
+          device.deviceId == "62" ||
+          device.deviceId == "63" ||
+          device.deviceId == "64" ||
+          device.deviceId == "65" ||
+          device.deviceId == "66" ||
           device.deviceId == "D0505")
       .toList();
   @override
