@@ -1397,6 +1397,7 @@
 import 'dart:convert';
 import 'package:detest/Image_download.dart';
 import 'package:detest/Inferenced_Data copy.dart';
+import 'package:detest/country/FranceNew.dart';
 import 'package:detest/country/Germany.dart';
 import 'package:detest/country/Spain.dart';
 import 'package:detest/country/Switzerland.dart';
@@ -1608,12 +1609,12 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 400,
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1640,7 +1641,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1667,7 +1668,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1694,7 +1695,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1721,7 +1722,34 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => franceNewScreen()),
+                          );
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: backgroundColor,
+                      ),
+                      label: const Text(
+                        'France2',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          // elevation: 10,
+                          backgroundColor: Color.fromARGB(164, 14, 211, 7)),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1748,7 +1776,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1775,7 +1803,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
