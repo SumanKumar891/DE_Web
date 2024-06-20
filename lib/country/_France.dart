@@ -45,7 +45,7 @@ class _franceScreenState extends State<franceScreen> {
               const SizedBox(
                 width: 10,
               ),
-              Text('France Deployment June 2024 DATA')
+              Text('France Deployment May 2023 DATA')
             ],
           ),
         ),
