@@ -45,7 +45,7 @@ class _germanyBioMonitorScreenState extends State<germanyBioMonitorScreen> {
               const SizedBox(
                 width: 10,
               ),
-              Text('Germany(BioMonitor 4-Cap) Deployment June 2024 DATA')
+              Text('Germany (BioMonitor 4-Cap) Deployment June 2024 DATA')
             ],
           ),
         ),
