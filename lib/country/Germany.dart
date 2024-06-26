@@ -47,7 +47,7 @@ class _germanyState extends State<germanyScreen> {
               const SizedBox(
                 width: 10,
               ),
-              Text('Germany DATA')
+              Text('Germany 2023 DATA')
             ],
           ),
         ),
