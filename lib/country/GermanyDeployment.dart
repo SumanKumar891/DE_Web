@@ -3,6 +3,8 @@ import 'package:detest/country/Germany.dart';
 import 'package:detest/country/GermanyBioMonitor..dart';
 import 'package:flutter/material.dart';
 
+import 'germanyNaPa.dart';
+
 class GermanyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,21 @@ class GermanyPage extends StatelessWidget {
                   );
                 },
                 child: Text('Deployment (BioMonitotr 4-CAP) JUNE 2024'),
+                style: ElevatedButton.styleFrom(
+                    // elevation: 10,
+                    minimumSize: Size(200, 50),
+                    backgroundColor: Color.fromARGB(164, 14, 211, 7)),
+              ),
+              SizedBox(height: 30), // Add some space between the buttons
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => germanyNaPaScreen()),
+                  );
+                },
+                child: Text('Deployment (NaPa/livinGro/University of Bonn)'),
                 style: ElevatedButton.styleFrom(
                     // elevation: 10,
                     minimumSize: Size(200, 50),
