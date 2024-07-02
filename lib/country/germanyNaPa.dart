@@ -46,7 +46,7 @@ class _germanyNaPaScreenState extends State<germanyNaPaScreen> {
               const SizedBox(
                 width: 10,
               ),
-              Text('Germany (NaPa/livinGro/University of Bonn) Deployment DATA')
+              Text('Germany (NaPa/livinGro/University of Bonn) Deployment JULY 2024 DATA')
             ],
           ),
         ),
