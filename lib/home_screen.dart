@@ -1421,6 +1421,7 @@ import 'package:detest/weatherData.dart';
 import 'package:detest/insectCount.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:intl/intl.dart';
+import 'country/Australia.dart';
 import 'filteredData.dart';
 import 'package:detest/Battery.dart';
 import 'birdNet.dart';
@@ -1663,6 +1664,33 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       label: const Text(
                         'Switzerland',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          // elevation: 10,
+                          backgroundColor: Color.fromARGB(164, 14, 211, 7)),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AustraliaScreen()),
+                          );
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: backgroundColor,
+                      ),
+                      label: const Text(
+                        'Australia',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       style: ElevatedButton.styleFrom(
