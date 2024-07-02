@@ -56,7 +56,7 @@ class GermanyPage extends StatelessWidget {
                         builder: (context) => germanyNaPaScreen()),
                   );
                 },
-                child: Text('Deployment (NaPa/livinGro/University of Bonn)'),
+                child: Text('Deployment (NaPa/livinGro/University of Bonn) JULY 2024'),
                 style: ElevatedButton.styleFrom(
                     // elevation: 10,
                     minimumSize: Size(200, 50),
