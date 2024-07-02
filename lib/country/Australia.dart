@@ -48,7 +48,7 @@ class _AustraliaScreenState extends State<AustraliaScreen> {
                 width: 10,
               ),
               Text(
-                  'Australia(Syngenta AU / University of S. Queenland - canola) Deployment July 2024 DATA')
+                  'Australia(Syngenta AU / University of S. Queensland - canola) Deployment July 2024 DATA')
             ],
           ),
         ),
