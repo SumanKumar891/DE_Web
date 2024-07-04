@@ -1402,6 +1402,7 @@ import 'package:detest/country/Germany.dart';
 import 'package:detest/country/GermanyDeployment.dart';
 import 'package:detest/country/Spain.dart';
 import 'package:detest/country/Switzerland.dart';
+import 'package:detest/country/UKDeployment.dart';
 import 'package:detest/country/UkData.dart';
 import 'package:detest/country/UsaData.dart';
 import 'package:detest/country/_France.dart';
@@ -1761,8 +1762,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         setState(() {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => UK_Screen()),
+                            MaterialPageRoute(builder: (context) => UKPage()),
                           );
                         });
                       },
