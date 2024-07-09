@@ -1400,9 +1400,11 @@ import 'package:detest/Inferenced_Data copy.dart';
 import 'package:detest/country/FranceNew.dart';
 import 'package:detest/country/Germany.dart';
 import 'package:detest/country/GermanyDeployment.dart';
+import 'package:detest/country/Portugal.dart';
 import 'package:detest/country/Spain.dart';
 import 'package:detest/country/Switzerland.dart';
 import 'package:detest/country/UKDeployment.dart';
+import 'package:detest/country/USADeployment.dart';
 import 'package:detest/country/UkData.dart';
 import 'package:detest/country/UsaData.dart';
 import 'package:detest/country/_France.dart';
@@ -1789,7 +1791,33 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => USA_Screen()),
+                                builder: (context) => PortutgalScreen()),
+                          );
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: backgroundColor,
+                      ),
+                      label: const Text(
+                        'Portugal',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          // elevation: 10,
+                          backgroundColor: Color.fromARGB(164, 14, 211, 7)),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => USAPage()),
                           );
                         });
                       },
