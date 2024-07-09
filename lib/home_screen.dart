@@ -1611,16 +1611,16 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(color: buttonColor),
             )),
             content: SizedBox(
-              height: 500,
+              height: 700,
               width: 400,
               child: Column(
                 children: [
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 1),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1647,7 +1647,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1674,7 +1674,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1701,7 +1701,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1728,7 +1728,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1755,7 +1755,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1781,7 +1781,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1808,7 +1808,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1834,7 +1834,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -1861,7 +1861,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Color.fromARGB(164, 14, 211, 7)),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 13),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
