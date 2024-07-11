@@ -352,7 +352,6 @@ class _USAnewScreenState extends State<USAnewScreen> {
                             //     },
                             //   ),
                             // ),
-                          ),
                         ]),
                       ],
                     ),
