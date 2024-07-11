@@ -214,20 +214,20 @@ class _INDIA_ScreenState extends State<INDIA_Screen> {
                               ),
                             ),
                           ),
-                              SizedBox(
-                                  height: 40,
-                                  child: Center(
-                                    child: Tooltip(
-                                      message:
-                                          'Last Active: ${filterData[i].lastActive}',
-                                      child: Text(
-                                        filterData[i].status,
-                                        style: const TextStyle(
-                                            fontSize: 16, color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
+                          SizedBox(
+                            height: 40,
+                            child: Center(
+                              child: Tooltip(
+                                message:
+                                    'Last Active: ${filterData[i].lastActive}',
+                                child: Text(
+                                  filterData[i].status,
+                                  style: const TextStyle(
+                                      fontSize: 16, color: Colors.white),
                                 ),
+                              ),
+                            ),
+                          ),
                           SizedBox(
                             height: 40,
                             child: Center(
@@ -305,54 +305,54 @@ class _INDIA_ScreenState extends State<INDIA_Screen> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 40,
-                            child:
-                                // Center(
-                                //   child: FutureBuilder<String>(
-                                //     future: fetchBatteryPercentage(
-                                //         deviceData[i].deviceId),
-                                //     builder: (context, snapshot) {
-                                //       if (snapshot.connectionState ==
-                                //           ConnectionState.waiting) {
-                                //         return CircularProgressIndicator(
-                                //           color: Colors.green,
-                                //         );
-                                //       } else if (snapshot.hasError) {
-                                //         return Text(
-                                //             'Error fetching battery percentage');
-                                //       } else {
-                                //         return Row(
-                                //           mainAxisAlignment:
-                                //               MainAxisAlignment.center,
-                                //           children: [
-                                IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => Battery(
-                                        deviceId: filterData[i].deviceId,
-                                    ),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.battery_6_bar,
-                                color: backgroundColor,
-                              ),
-                            ),
-                            //             Text(
-                            //               snapshot.data ?? 'N/A',
-                            //               style: TextStyle(
-                            //                   color: Colors.white),
-                            //             ),
-                            //           ],
-                            //         );
-                            //       }
-                            //     },
-                            //   ),
-                            // ),
-                          ),
+                          // SizedBox(
+                          //   height: 40,
+                          //   child:
+                          //       // Center(
+                          //       //   child: FutureBuilder<String>(
+                          //       //     future: fetchBatteryPercentage(
+                          //       //         deviceData[i].deviceId),
+                          //       //     builder: (context, snapshot) {
+                          //       //       if (snapshot.connectionState ==
+                          //       //           ConnectionState.waiting) {
+                          //       //         return CircularProgressIndicator(
+                          //       //           color: Colors.green,
+                          //       //         );
+                          //       //       } else if (snapshot.hasError) {
+                          //       //         return Text(
+                          //       //             'Error fetching battery percentage');
+                          //       //       } else {
+                          //       //         return Row(
+                          //       //           mainAxisAlignment:
+                          //       //               MainAxisAlignment.center,
+                          //       //           children: [
+                          //       IconButton(
+                          //     onPressed: () {
+                          //       Navigator.of(context).push(
+                          //         MaterialPageRoute(
+                          //           builder: (_) => Battery(
+                          //               deviceId: filterData[i].deviceId,
+                          //           ),
+                          //         ),
+                          //       );
+                          //     },
+                          //     icon: const Icon(
+                          //       Icons.battery_6_bar,
+                          //       color: backgroundColor,
+                          //     ),
+                          //   ),
+                          //   //             Text(
+                          //   //               snapshot.data ?? 'N/A',
+                          //   //               style: TextStyle(
+                          //   //                   color: Colors.white),
+                          //   //             ),
+                          //   //           ],
+                          //   //         );
+                          //   //       }
+                          //   //     },
+                          //   //   ),
+                          //   // ),
+                          // ),
                         ]),
                       ],
                     ),

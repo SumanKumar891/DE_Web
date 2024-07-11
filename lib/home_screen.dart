@@ -1426,7 +1426,7 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:intl/intl.dart';
 import 'country/Australia.dart';
 import 'filteredData.dart';
-import 'package:detest/Battery.dart';
+// import 'package:detest/Battery.dart';
 import 'birdNet.dart';
 import 'package:detest/country/oldDevice.dart';
 
@@ -2165,14 +2165,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             2: FractionColumnWidth(0.15),
                             3: FractionColumnWidth(0.15),
                             4: FractionColumnWidth(0.15),
-                            5: FractionColumnWidth(0.15),
-                            6: FractionColumnWidth(0.18)
+                            5: FractionColumnWidth(0.18)
+                            // 6: FractionColumnWidth(0.18)
                           },
                           children: const <TableRow>[
                             TableRow(children: <Widget>[
                               Center(
                                 child: Text(
-                                  'S.NO',
+                                  'Serial No',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -2181,7 +2181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Center(
                                 child: Text(
-                                  'DEVICE ID',
+                                  'Device ID',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -2190,7 +2190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Center(
                                 child: Text(
-                                  'BOOT STATUS',
+                                  'Boot Status',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -2217,22 +2217,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Center(
                                 child: Text(
-                                  'Image',
+                                  'Images',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                       color: backgroundColor),
                                 ),
                               ),
-                              Center(
-                                child: Text(
-                                  'Battery',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: backgroundColor),
-                                ),
-                              ),
+                              // Center(
+                              //   child: Text(
+                              //     'Battery',
+                              //     style: TextStyle(
+                              //         fontWeight: FontWeight.bold,
+                              //         fontSize: 16,
+                              //         color: backgroundColor),
+                              //   ),
+                              // ),
                             ]),
                           ],
                         ),
@@ -2262,8 +2262,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               2: FractionColumnWidth(0.15),
                               3: FractionColumnWidth(0.15),
                               4: FractionColumnWidth(0.15),
-                              5: FractionColumnWidth(0.15),
-                              6: FractionColumnWidth(0.18)
+                              5: FractionColumnWidth(0.18)
+                              // 6: FractionColumnWidth(0.18)
                             },
                             children: [
                               TableRow(children: [
@@ -2370,34 +2370,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 40,
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (_) => Battery(
-                                                  deviceId:
-                                                      filteredDeviceData[i]
-                                                          .deviceId,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            Icons.battery_6_bar,
-                                            color: backgroundColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                // SizedBox(
+                                //   height: 40,
+                                //   child: Center(
+                                //     child: Row(
+                                //       mainAxisAlignment:
+                                //           MainAxisAlignment.center,
+                                //       children: [
+                                //         IconButton(
+                                //           onPressed: () {
+                                //             Navigator.of(context).push(
+                                //               MaterialPageRoute(
+                                //                 builder: (_) => Battery(
+                                //                   deviceId:
+                                //                       filteredDeviceData[i]
+                                //                           .deviceId,
+                                //                 ),
+                                //               ),
+                                //             );
+                                //           },
+                                //           icon: const Icon(
+                                //             Icons.battery_6_bar,
+                                //             color: backgroundColor,
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
                               ]),
                             ],
                           ),
