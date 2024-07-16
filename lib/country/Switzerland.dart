@@ -68,8 +68,8 @@ class _SwitzerlandScreenState extends State<SwitzerlandScreen> {
                       2: FractionColumnWidth(0.15),
                       3: FractionColumnWidth(0.15),
                       4: FractionColumnWidth(0.15),
-                      5: FractionColumnWidth(0.15),
-                      6: FractionColumnWidth(0.18)
+                      // 5: FractionColumnWidth(0.15),
+                      5: FractionColumnWidth(0.18)
                     },
                     children: const <TableRow>[
                       TableRow(children: <Widget>[
@@ -137,15 +137,15 @@ class _SwitzerlandScreenState extends State<SwitzerlandScreen> {
                                 color: backgroundColor),
                           ),
                         ),
-                        Center(
-                          child: Text(
-                            'Battery',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: backgroundColor),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Text(
+                        //     'Battery',
+                        //     style: TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         fontSize: 16,
+                        //         color: backgroundColor),
+                        //   ),
+                        // ),
                       ]),
                     ],
                   ),
@@ -175,8 +175,8 @@ class _SwitzerlandScreenState extends State<SwitzerlandScreen> {
                         2: FractionColumnWidth(0.15),
                         3: FractionColumnWidth(0.15),
                         4: FractionColumnWidth(0.15),
-                        5: FractionColumnWidth(0.15),
-                        6: FractionColumnWidth(0.18)
+                        // 5: FractionColumnWidth(0.15),
+                        5: FractionColumnWidth(0.18)
                       },
                       children: [
                         TableRow(children: [

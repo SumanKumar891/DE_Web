@@ -63,12 +63,13 @@ class _oldScreenState extends State<oldScreen> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                   child: Table(
                     columnWidths: const {
-                      0: FractionColumnWidth(0.10),
-                      1: FractionColumnWidth(0.18),
-                      2: FractionColumnWidth(0.18),
-                      3: FractionColumnWidth(0.18),
-                      4: FractionColumnWidth(0.18),
-                      5: FractionColumnWidth(0.18),
+                      0: FractionColumnWidth(0.07),
+                      1: FractionColumnWidth(0.15),
+                      2: FractionColumnWidth(0.15),
+                      3: FractionColumnWidth(0.15),
+                      4: FractionColumnWidth(0.15),
+                      // 5: FractionColumnWidth(0.15),
+                      5: FractionColumnWidth(0.18)
                     },
                     children: const <TableRow>[
                       TableRow(children: <Widget>[
@@ -136,15 +137,15 @@ class _oldScreenState extends State<oldScreen> {
                         //         color: backgroundColor),
                         //   ),
                         // ),
-                        Center(
-                          child: Text(
-                            'Battery',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: backgroundColor),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Text(
+                        //     'Battery',
+                        //     style: TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         fontSize: 16,
+                        //         color: backgroundColor),
+                        //   ),
+                        // ),
                       ]),
                     ],
                   ),
@@ -169,13 +170,13 @@ class _oldScreenState extends State<oldScreen> {
                         const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                     child: Table(
                       columnWidths: const {
-                        0: FractionColumnWidth(0.10),
-                        1: FractionColumnWidth(0.18),
-                        2: FractionColumnWidth(0.18),
-                        3: FractionColumnWidth(0.18),
-                        4: FractionColumnWidth(0.18),
-                        5: FractionColumnWidth(0.18),
-                        //6: FractionColumnWidth(0.18)
+                        0: FractionColumnWidth(0.07),
+                        1: FractionColumnWidth(0.15),
+                        2: FractionColumnWidth(0.15),
+                        3: FractionColumnWidth(0.15),
+                        4: FractionColumnWidth(0.15),
+                        // 5: FractionColumnWidth(0.15),
+                        5: FractionColumnWidth(0.18)
                       },
                       children: [
                         TableRow(children: [
