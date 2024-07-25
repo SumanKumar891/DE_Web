@@ -2160,10 +2160,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             horizontal: 10, vertical: 0),
                         child: Table(
                           columnWidths: const {
-                            0: FractionColumnWidth(0.07),
+                            0: FractionColumnWidth(0.15),
                             1: FractionColumnWidth(0.15),
-                            2: FractionColumnWidth(0.15),
-                            3: FractionColumnWidth(0.15),
+                            2: FractionColumnWidth(0.18),
+                            3: FractionColumnWidth(0.18),
                             // 4: FractionColumnWidth(0.15),
                             4: FractionColumnWidth(0.18)
                             // 6: FractionColumnWidth(0.18)
@@ -2257,10 +2257,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               horizontal: 30, vertical: 0),
                           child: Table(
                             columnWidths: const {
-                              0: FractionColumnWidth(0.07),
+                              0: FractionColumnWidth(0.15),
                               1: FractionColumnWidth(0.15),
-                              2: FractionColumnWidth(0.15),
-                              3: FractionColumnWidth(0.15),
+                              2: FractionColumnWidth(0.18),
+                              3: FractionColumnWidth(0.18),
                               // 4: FractionColumnWidth(0.15),
                               4: FractionColumnWidth(0.18)
                               // 6: FractionColumnWidth(0.18)
