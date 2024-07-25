@@ -2164,8 +2164,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             1: FractionColumnWidth(0.15),
                             2: FractionColumnWidth(0.15),
                             3: FractionColumnWidth(0.15),
-                            4: FractionColumnWidth(0.15),
-                            5: FractionColumnWidth(0.18)
+                            // 4: FractionColumnWidth(0.15),
+                            4: FractionColumnWidth(0.18)
                             // 6: FractionColumnWidth(0.18)
                           },
                           children: const <TableRow>[
@@ -2197,15 +2197,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: backgroundColor),
                                 ),
                               ),
-                              Center(
-                                child: Text(
-                                  'Weather Data',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: backgroundColor),
-                                ),
-                              ),
+                              // Center(
+                              //   child: Text(
+                              //     'Weather Data',
+                              //     style: TextStyle(
+                              //         fontWeight: FontWeight.bold,
+                              //         fontSize: 16,
+                              //         color: backgroundColor),
+                              //   ),
+                              // ),
                               Center(
                                 child: Text(
                                   'Insect Count',
@@ -2261,8 +2261,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               1: FractionColumnWidth(0.15),
                               2: FractionColumnWidth(0.15),
                               3: FractionColumnWidth(0.15),
-                              4: FractionColumnWidth(0.15),
-                              5: FractionColumnWidth(0.18)
+                              // 4: FractionColumnWidth(0.15),
+                              4: FractionColumnWidth(0.18)
                               // 6: FractionColumnWidth(0.18)
                             },
                             children: [
@@ -2301,29 +2301,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 40,
-                                  child: Center(
-                                    child: IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (_) => Weather(
-                                              deviceId: filteredDeviceData[i]
-                                                  .deviceId,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      icon: const Icon(
-                                        Icons.cloud,
-                                        color: backgroundColor,
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white10),
-                                    ),
-                                  ),
-                                ),
+                                // SizedBox(
+                                //   height: 40,
+                                //   child: Center(
+                                //     child: IconButton(
+                                //       onPressed: () {
+                                //         Navigator.of(context).push(
+                                //           MaterialPageRoute(
+                                //             builder: (_) => Weather(
+                                //               deviceId: filteredDeviceData[i]
+                                //                   .deviceId,
+                                //             ),
+                                //           ),
+                                //         );
+                                //       },
+                                //       icon: const Icon(
+                                //         Icons.cloud,
+                                //         color: backgroundColor,
+                                //       ),
+                                //       style: ElevatedButton.styleFrom(
+                                //           backgroundColor: Colors.white10),
+                                //     ),
+                                //   ),
+                                // ),
                                 SizedBox(
                                   height: 40,
                                   child: Center(

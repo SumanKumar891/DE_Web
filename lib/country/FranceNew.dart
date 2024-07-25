@@ -73,9 +73,9 @@ class _franceNewScreenState extends State<franceNewScreen> {
                       1: FractionColumnWidth(0.15),
                       2: FractionColumnWidth(0.15),
                       3: FractionColumnWidth(0.15),
-                      4: FractionColumnWidth(0.15),
+                      // 4: FractionColumnWidth(0.15),
                       // 5: FractionColumnWidth(0.15),
-                      5: FractionColumnWidth(0.18)
+                      4: FractionColumnWidth(0.18)
                     },
                     children: const <TableRow>[
                       TableRow(children: <Widget>[
@@ -107,15 +107,15 @@ class _franceNewScreenState extends State<franceNewScreen> {
                           ),
                         ),
 
-                        Center(
-                          child: Text(
-                            'Weather Data',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: backgroundColor),
-                          ),
-                        ),
+                        // Center(
+                        //   child: Text(
+                        //     'Weather Data',
+                        //     style: TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         fontSize: 16,
+                        //         color: backgroundColor),
+                        //   ),
+                        // ),
                         // Center(
                         //   child: Text(
                         //     'Motion Count',
@@ -180,9 +180,9 @@ class _franceNewScreenState extends State<franceNewScreen> {
                         1: FractionColumnWidth(0.15),
                         2: FractionColumnWidth(0.15),
                         3: FractionColumnWidth(0.15),
-                        4: FractionColumnWidth(0.15),
+                        // 4: FractionColumnWidth(0.15),
                         // 5: FractionColumnWidth(0.15),
-                        5: FractionColumnWidth(0.18)
+                        4: FractionColumnWidth(0.18)
                       },
                       children: [
                         TableRow(children: [
@@ -220,32 +220,32 @@ class _franceNewScreenState extends State<franceNewScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 40,
-                            child: Center(
-                              child: IconButton(
-                                onPressed: () {
-                                  // print('Status');
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => Weather(
-                                        // values: [],
-                                        deviceId: filterData[i].deviceId,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.cloud,
-                                  color: backgroundColor,
-                                ),
-                                // label: const Text('TempDB Data'),
-                                style: ElevatedButton.styleFrom(
-                                    // elevation: 10,
-                                    backgroundColor: Colors.white10),
-                              ),
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 40,
+                          //   child: Center(
+                          //     child: IconButton(
+                          //       onPressed: () {
+                          //         // print('Status');
+                          //         Navigator.of(context).push(
+                          //           MaterialPageRoute(
+                          //             builder: (_) => Weather(
+                          //               // values: [],
+                          //               deviceId: filterData[i].deviceId,
+                          //             ),
+                          //           ),
+                          //         );
+                          //       },
+                          //       icon: const Icon(
+                          //         Icons.cloud,
+                          //         color: backgroundColor,
+                          //       ),
+                          //       // label: const Text('TempDB Data'),
+                          //       style: ElevatedButton.styleFrom(
+                          //           // elevation: 10,
+                          //           backgroundColor: Colors.white10),
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 40,
                             child: Center(
