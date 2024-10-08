@@ -1443,7 +1443,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<String> response;
   late TextEditingController _serialId;
   late TextEditingController _securityKey;
-  //late TextEditingController _searchController;
   late TextEditingController dateController;
   late TextEditingController timeinput;
   late String result;
@@ -1485,120 +1484,6 @@ class _HomeScreenState extends State<HomeScreen> {
           .toList();
     });
   }
-
-  Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Center(
-              child: Text(
-            'Register a new Device ',
-            style: TextStyle(color: buttonColor),
-          )),
-          content: SizedBox(
-            height: 140,
-            width: 400,
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextInputField(
-                    initalvalue: 'D0999',
-                    controller: _serialId,
-                    labelText: 'Device ID',
-                    icon: Icons.devices,
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextInputField(
-                    initalvalue: '1234',
-                    controller: _securityKey,
-                    labelText: 'Serial ID',
-                    icon: Icons.devices,
-                    // isObscure: true,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            MaterialButton(
-              textColor: Colors.white,
-              color: Colors.red,
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            MaterialButton(
-              textColor: Colors.white,
-              color: buttonColor,
-              child: const Text('Register'),
-              onPressed: () {
-                RegistrationUser();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // void notifications() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text("Battery State"),
-  //         content: Container(
-  //           padding: EdgeInsets.all(16.0),
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(16.0),
-  //             color: Colors.grey.shade200,
-  //           ),
-  //           child: Row(
-  //             children: [
-  //               Icon(
-  //                 Icons
-  //                     .battery_charging_full_outlined, // Choose the appropriate battery icon
-  //                 size: 48, // Adjust the size as needed
-  //                 color: Colors.green, // Choose the color
-  //               ),
-  //               SizedBox(
-  //                   width: 16), // Adjust spacing between icon and text field
-  //               Expanded(
-  //                 child: TextFormField(
-  //                   decoration: InputDecoration(
-  //                     labelText: 'Battery Status',
-  //                     border: OutlineInputBorder(),
-  //                     contentPadding:
-  //                         EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-  //                   ),
-  //                   controller: TextEditingController(text: ""),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: Text('Close'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   Future<void> _filter(BuildContext context) {
     return showDialog<void>(
@@ -1905,54 +1790,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future RegistrationUser() async {
-    var APIURL = Uri.parse(
-        "https://uo1t934012.execute-api.us-east-1.amazonaws.com//addNewDevice");
-    Map mapeddate = {
-      'device_id': _serialId.text,
-      'serial_id': _securityKey.text,
-      'email': widget.email
-    };
-    String requestBody = jsonEncode(mapeddate);
-    // print("JSON DATA: ${requestBody}");
-    http.Response response = await http.post(APIURL, body: requestBody);
-    var data = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(data.toString()),
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.green,
-        ),
-      );
-    } else {
-      throw Exception('Failed to load api');
-    }
-  }
-
-  Future<String> fetchBatteryPercentage(String deviceId) async {
-    final apiUrl = Uri.parse(
-        'https://g2cn61cfw6.execute-api.us-east-1.amazonaws.com/default/battery_percentage_2?deviceid=$deviceId');
-
-    try {
-      final response = await http.get(apiUrl);
-      if (response.body.isNotEmpty) {
-        final List<dynamic> dataList = jsonDecode(response.body);
-        if (dataList.isNotEmpty) {
-          final double batteryPercentage = dataList.first;
-          return batteryPercentage.toString();
-        } else {
-          throw Exception('Battery percentage data is empty');
-        }
-      } else {
-        throw Exception('Empty response received from the API');
-      }
-    } catch (e) {
-      print('Error fetching battery percentage: $e');
-      return '--';
-    }
-  }
-
   void _openBirdNetDialog(BuildContext context) {
     String enteredDeviceId = '';
 
@@ -2036,22 +1873,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Text('Biodiversity Sensor Console'),
           ],
         ),
-        // actions: const [
-        //   Icon(
-        //     CupertinoIcons.app_badge,
-        //   ),
-        //   SizedBox(
-        //     width: 40,
-        //   ),
-        // ],
         actions: [
-          // ElevatedButton(
-          //   onPressed: notifications,
-          //   child: Icon(CupertinoIcons.app_badge),
-          //   style: ElevatedButton.styleFrom(
-          //     primary: Colors.green, // Change the background color to blue
-          //   ),
-          // ),
           Container(
             width: 200,
             height: 50,
@@ -2063,13 +1885,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 fillColor: Colors.transparent,
                 hintStyle: TextStyle(color: Colors.white, fontSize: 20),
                 filled: true,
-
-                // border: OutlineInputBorder(
-                //   borderRadius: BorderRadius.circular(10),
-                // ),
               ),
               style: TextStyle(
-                color: Colors.white, // Change text color here
+                color: Colors.white,
               ),
             ),
           ),
@@ -2107,11 +1925,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () => _filter(context),
                 label: const Text('Countries')),
           ),
-          // FloatingActionButton.extended(
-          //     heroTag: 'btn3',
-          //     backgroundColor: buttonColor,
-          //     onPressed: () => _dialogBuilder(context),
-          //     label: const Text('Register a new Device +')),
           ElevatedButton(
             onPressed: () {
               setState(() {

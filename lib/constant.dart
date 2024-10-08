@@ -303,12 +303,12 @@ Future<String> getData(String email) async {
   final response = await http.get(
     Uri.parse('https://2nd0kjysjg.execute-api.us-east-1.amazonaws.com/'),
   );
-  final response1 = await http.get(
-    Uri.parse('https://fukaqwjsci.execute-api.us-east-1.amazonaws.com/data'),
-    headers: {
-      'email': email,
-    },
-  );
+  // final response1 = await http.get(
+  //   Uri.parse('https://fukaqwjsci.execute-api.us-east-1.amazonaws.com/data'),
+  //   headers: {
+  //     'email': email,
+  //   },
+  // );
   DateTime current = DateTime.now();
   String now = fmt.format(current);
   int nowInMS = fmt.parse(now).millisecondsSinceEpoch;
@@ -317,9 +317,9 @@ Future<String> getData(String email) async {
   for (var i in jsonDecode(response.body)) {
     deviceData.add(Device.fromJson(i, nowInMS));
   }
-  for (var i in jsonDecode(response1.body)) {
-    deviceData.add(Device.fromJson1(i, nowInMS));
-  }
+  // for (var i in jsonDecode(response1.body)) {
+  //   deviceData.add(Device.fromJson1(i, nowInMS));
+  // }
   deviceData.sort((a, b) => a.deviceId.compareTo(b.deviceId));
   deviceData.sort(compareDevices);
   return deviceData.isEmpty ? '400' : '200';
