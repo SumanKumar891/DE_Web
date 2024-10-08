@@ -267,7 +267,7 @@
 //=========================================================================================
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
-import 'dart:convert'; // for the utf8.encode method
+import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -276,11 +276,9 @@ List<Device> deviceData = [];
 final fmt1 = DateFormat("MMM d yyyy hh:mm:ss");
 final fmt = DateFormat('dd-MM-yyyy_HH-mm-ss');
 final fmt3 = DateFormat('yyyy-MM-dd HH:mm:ss');
-
 const backgroundColor = Colors.white;
 const buttonColor = Colors.green;
 const borderColor = Colors.green;
-
 Future<String> isUserFound(String email, String psw) async {
   var bytes = utf8.encode(psw); // data being hashed
   var digest = md5.convert(bytes);
@@ -312,7 +310,6 @@ Future<String> getData(String email) async {
   DateTime current = DateTime.now();
   String now = fmt.format(current);
   int nowInMS = fmt.parse(now).millisecondsSinceEpoch;
-
   deviceData.clear();
   for (var i in jsonDecode(response.body)) {
     deviceData.add(Device.fromJson(i, nowInMS));
